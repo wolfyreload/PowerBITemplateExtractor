@@ -111,27 +111,39 @@ namespace PowerBIExtractor
 
         private static void makeFileUnicode(string filePath)
         {
-            string contents = File.ReadAllText(filePath, Encoding.UTF8);
+            string jsonString = File.ReadAllText(filePath, Encoding.UTF8);
+            JObject jsonObjects = JObject.Parse(jsonString);
+
+            //collapse properties so they work in powerbi
+            string[] propertiesToColapse = { "config", "query", "dataTransforms", "filters" };
+            collapseJsonProperties(jsonObjects, propertiesToColapse);
+
             var outputEncoding = new UnicodeEncoding(bigEndian: false, byteOrderMark: false);
-            File.WriteAllText(filePath, contents, outputEncoding);
+            jsonString = JsonConvert.SerializeObject(jsonObjects, Formatting.Indented);
+            File.WriteAllText(filePath, jsonString, outputEncoding);
 
         }
 
         private static void makeJsonPretty(string filePath)
         {
+            //convert json string to jsonObjects
             string jsonString = File.ReadAllText(filePath, Encoding.Unicode);
             JObject jsonObjects = JObject.Parse(jsonString);
 
+            //remove useless properties
             string[] propertiesToRemove = { "createdTimestamp", "lastUpdate", "lastSchemaUpdate", "lastProcessed", "modifiedTime", "structureModifiedTime", "refreshedTime" };
-            removeUselessProperties(jsonObjects, propertiesToRemove);
+            removeUselessJsonProperties(jsonObjects, propertiesToRemove);
 
+            //expand properties so we can see changes in them
+            string[] propertiesToExpand = { "config", "query", "dataTransforms", "filters"  };
+            expandJsonProperties(jsonObjects, propertiesToExpand);
+
+            //convert back to a json string
             jsonString = JsonConvert.SerializeObject(jsonObjects, Formatting.Indented);
-
-
             File.WriteAllText(filePath, jsonString, Encoding.UTF8);
         }
 
-        private static void removeUselessProperties(JToken token, string[] propertiesToRemove)
+        private static void removeUselessJsonProperties(JToken token, string[] propertiesToRemove)
         {
             if (token.Type == JTokenType.Object)
             {
@@ -147,7 +159,7 @@ namespace PowerBIExtractor
 
                     if (!removed)
                     {
-                        removeUselessProperties(property.Value, propertiesToRemove);
+                        removeUselessJsonProperties(property.Value, propertiesToRemove);
                     }
                 }
             }
@@ -155,7 +167,81 @@ namespace PowerBIExtractor
             {
                 foreach (JToken child in token.Children())
                 {
-                    removeUselessProperties(child, propertiesToRemove);
+                    removeUselessJsonProperties(child, propertiesToRemove);
+                }
+            }
+        }
+
+        private static void expandJsonProperties(JToken token, string[] propertiesToExpand)
+        {
+            if (token.Type == JTokenType.Object)
+            {
+                foreach (JProperty property in token.Children<JProperty>().ToList())
+                {
+                    bool processed = false;
+
+                    if (propertiesToExpand.Contains(property.Name))
+                    {
+                        string jsonStringProperty = property.Value.ToString();
+                        if (jsonStringProperty.StartsWith("{"))
+                        {
+                            JToken expandedProperties = JObject.Parse(jsonStringProperty);
+                            property.Value = expandedProperties;
+                            processed = true;
+                        }
+                        else if (jsonStringProperty.StartsWith("["))
+                        {
+                            JToken expandedProperties = JArray.Parse(jsonStringProperty);
+                            property.Value = expandedProperties;
+                            processed = true;
+                        }
+                    }
+
+                    if (!processed)
+                    {
+                        expandJsonProperties(property.Value, propertiesToExpand);
+                    }
+                }
+            }
+            else if (token.Type == JTokenType.Array)
+            {
+                foreach (JToken child in token.Children())
+                {
+                    expandJsonProperties(child, propertiesToExpand);
+                }
+            }
+        }
+
+        private static void collapseJsonProperties(JToken token, string[] propertiesToCollapse)
+        {
+            if (token.Type == JTokenType.Object)
+            {
+                foreach (JProperty property in token.Children<JProperty>().ToList())
+                {
+                    bool processed = false;
+
+                    if (propertiesToCollapse.Contains(property.Name))
+                    {
+                        string jsonStringProperty = property.Value.ToString();
+                        if (property.Value.Type == JTokenType.Object || property.Value.Type == JTokenType.Array)
+                        {
+                            var jsonString = JsonConvert.SerializeObject(property.Value, Formatting.None);
+                            property.Value = jsonString;
+                            processed = true;
+                        }
+                    }
+
+                    if (!processed)
+                    {
+                        collapseJsonProperties(property.Value, propertiesToCollapse);
+                    }
+                }
+            }
+            else if (token.Type == JTokenType.Array)
+            {
+                foreach (JToken child in token.Children())
+                {
+                    collapseJsonProperties(child, propertiesToCollapse);
                 }
             }
         }
