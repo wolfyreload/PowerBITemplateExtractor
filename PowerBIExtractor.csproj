@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <OutputType>exe</OutputType>
-    <TargetFramework>netcoreapp1.1.2</TargetFramework>
-    <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
-	<ApplicationIcon />
+    <TargetFrameworks>netcoreapp1.1.2;netcoreapp1.1;net461;net45</TargetFrameworks>
+    <ApplicationIcon />
     <StartupObject />
+	<OutputPath>bin\$(Configuration)\$(TargetFramework)\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
