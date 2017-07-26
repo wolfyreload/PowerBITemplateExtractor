@@ -11,10 +11,14 @@
 
   <ItemGroup>
     <None Remove="7za.exe" />
+    <None Remove="PowerBISourceControlConfig.json" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="7za.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PowerBISourceControlConfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

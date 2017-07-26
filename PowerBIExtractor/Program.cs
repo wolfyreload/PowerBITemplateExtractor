@@ -42,13 +42,16 @@ namespace PowerBIExtractor
             path = args[2];
             fileName = args[3];
 
+            string configString = File.ReadAllText(".\\PowerBISourceControlConfig.json");
+            var options = JsonConvert.DeserializeObject<SourceControlOptionsRoot>(configString);
+
             if (operationType == OperationType.Export)
-                exportAndProcessFiles(path, fileName);
+                exportAndProcessFiles(path, fileName, options);
             else
-                importFromFiles(path, fileName);
+                importFromFiles(path, fileName, options);
         }
 
-        private static void importFromFiles(string path, string fileName)
+        private static void importFromFiles(string path, string fileName, SourceControlOptionsRoot options)
         {
             //make a clone of the folder we working with as we want to change the encodings of a couple of files
             var sourcePath = new DirectoryInfo(path);
@@ -56,10 +59,11 @@ namespace PowerBIExtractor
             if (destinationPath.Exists) destinationPath.Delete(recursive: true);
             copyFilesRecursively(sourcePath, destinationPath);
 
-            makeFileUnicode(Path.Combine("Clone", "DataModelSchema"));
-            makeFileUnicode(Path.Combine("Clone", @"Report\Layout"));
-            makeFileUnicode(Path.Combine("Clone", "DiagramState"));
-
+            foreach (var option in options.SourceControlOptions)
+            {
+                makeFileUnicode(option);
+            }
+      
             //generate the zip file
             File.Delete(fileName);
             string oldCurrentDirectory = Directory.GetCurrentDirectory();
@@ -83,7 +87,7 @@ namespace PowerBIExtractor
                 file.CopyTo(Path.Combine(target.FullName, file.Name));
         }
 
-        private static void exportAndProcessFiles(string path, string fileName)
+        private static void exportAndProcessFiles(string path, string fileName, SourceControlOptionsRoot options)
         {
             if (!File.Exists(fileName)) return;
             //export to folder
@@ -93,10 +97,11 @@ namespace PowerBIExtractor
             lauch7zip(string.Format("x {0} -o{1}", fileName, path));
 
             //prettyfy the json
-            makeJsonPretty(Path.Combine(path, "DataModelSchema"));
-            makeJsonPretty(Path.Combine(path, @"Report\Layout"));
-            makeJsonPretty(Path.Combine(path, "DiagramState"));
-
+            foreach (var option in options.SourceControlOptions)
+            {
+                makeJsonPretty(path, option);
+            }
+      
             //extract the mashupdata
             string mashupFileLocation = Path.Combine(path, "DataMashup");
             string mashupDestinationLocation = Path.Combine(path, "DataMashupSourceData");
@@ -109,13 +114,15 @@ namespace PowerBIExtractor
             File.Delete(Path.Combine(path, @"Report\LinguisticSchema"));
         }
 
-        private static void makeFileUnicode(string filePath)
+        private static void makeFileUnicode(SourceControlOption option)
         {
+            string filePath = Path.Combine("Clone", option.FileName);
+
             string jsonString = File.ReadAllText(filePath, Encoding.UTF8);
             JObject jsonObjects = JObject.Parse(jsonString);
 
             //collapse properties so they work in powerbi
-            string[] propertiesToColapse = { "config", "query", "dataTransforms", "filters" };
+            string[] propertiesToColapse = option.propertiesToExpand;
             JsonHelper.CollapseJsonProperties(jsonObjects, propertiesToColapse);
 
             var outputEncoding = new UnicodeEncoding(bigEndian: false, byteOrderMark: false);
@@ -124,18 +131,20 @@ namespace PowerBIExtractor
 
         }
 
-        private static void makeJsonPretty(string filePath)
+        private static void makeJsonPretty(string basePath, SourceControlOption option)
         {
+            string filePath = Path.Combine(basePath, option.FileName);
+            
             //convert json string to jsonObjects
             string jsonString = File.ReadAllText(filePath, Encoding.Unicode);
             JObject jsonObjects = JObject.Parse(jsonString);
 
             //remove useless properties
-            string[] propertiesToRemove = { "createdTimestamp", "lastUpdate", "lastSchemaUpdate", "lastProcessed", "modifiedTime", "structureModifiedTime", "refreshedTime" };
+            string[] propertiesToRemove = option.PropertiesToRemove;
             JsonHelper.RemoveJsonProperties(jsonObjects, propertiesToRemove);
 
             //expand properties so we can see changes in them
-            string[] propertiesToExpand = { "config", "query", "dataTransforms", "filters"  };
+            string[] propertiesToExpand = option.propertiesToExpand;
             JsonHelper.ExpandJsonProperties(jsonObjects, propertiesToExpand);
 
             //sort the json files so we can check them in source control

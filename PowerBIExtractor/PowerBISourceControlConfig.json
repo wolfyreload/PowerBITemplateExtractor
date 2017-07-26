@@ -1,0 +1,19 @@
+{
+  "SourceControlOptions": [
+    {
+      "FileName": "DataModelSchema",
+      "PropertiesToRemove": [ "createdTimestamp", "lastUpdate", "lastSchemaUpdate", "lastProcessed", "modifiedTime", "structureModifiedTime", "refreshedTime" ],
+      "propertiesToExpand": []
+    },
+    {
+      "FileName": "Report\\Layout",
+      "PropertiesToRemove": [ "query", "dataTransforms"],
+      "propertiesToExpand": [ "config", "filters" ]
+    },
+    {
+      "FileName": "DiagramState",
+      "PropertiesToRemove": [],
+      "propertiesToExpand": []
+    }
+  ]
+}
