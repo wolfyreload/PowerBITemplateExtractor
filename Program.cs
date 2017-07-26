@@ -172,7 +172,6 @@ namespace PowerBIExtractor
             startInfo.CreateNoWindow = false;
             startInfo.UseShellExecute = false;
             startInfo.FileName = "7za.exe";
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.Arguments = arguments;
             Console.WriteLine("7za.exe " + arguments);
 
