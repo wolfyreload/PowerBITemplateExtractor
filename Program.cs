@@ -138,6 +138,10 @@ namespace PowerBIExtractor
             string[] propertiesToExpand = { "config", "query", "dataTransforms", "filters"  };
             expandJsonProperties(jsonObjects, propertiesToExpand);
 
+            //sort the json files so we can check them in source control
+            string[] propertiesToSortBy = { "x", "y", "z" };
+            sortJsonProperties(jsonObjects, propertiesToSortBy);
+
             //convert back to a json string
             jsonString = JsonConvert.SerializeObject(jsonObjects, Formatting.Indented);
             File.WriteAllText(filePath, jsonString, Encoding.UTF8);
@@ -208,6 +212,40 @@ namespace PowerBIExtractor
                 foreach (JToken child in token.Children())
                 {
                     expandJsonProperties(child, propertiesToExpand);
+                }
+            }
+        }
+
+        private static void sortJsonProperties(JToken token, string[] propertiesToSortBy)
+        {
+            if (token.Type == JTokenType.Array)
+            {
+                var array = token as JArray;
+                var firstObject = array.First as JToken;
+                if (firstObject is JObject)
+                {
+                    bool hasX = (firstObject as JObject)["x"] != null;
+                    if (hasX)
+                    {
+                        var newArray = new JArray(array.OrderBy(s => s["x"]).ThenBy(s => s["y"]).ThenBy(s => s["z"]));
+                        array.Clear();
+                        foreach (JToken item in newArray.Children())
+                        {
+                            array.Add(item);
+                        }
+                    }
+                }
+
+                foreach (JToken child in token.Children())
+                {
+                    sortJsonProperties(child, propertiesToSortBy);
+                }
+            }
+            else if (token.Type == JTokenType.Object)
+            {
+                foreach (JProperty property in token.Children<JProperty>().ToList())
+                {
+                    sortJsonProperties(property.Value, propertiesToSortBy);
                 }
             }
         }
