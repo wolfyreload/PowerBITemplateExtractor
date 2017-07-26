@@ -139,8 +139,7 @@ namespace PowerBIExtractor
             JsonHelper.ExpandJsonProperties(jsonObjects, propertiesToExpand);
 
             //sort the json files so we can check them in source control
-            string[] propertiesToSortBy = { "x", "y", "z" };
-            JsonHelper.SortJsonProperties(jsonObjects, propertiesToSortBy);
+            jsonObjects = JsonHelper.SortPropertiesAlphabetically(jsonObjects);
 
             //convert back to a json string
             jsonString = JsonConvert.SerializeObject(jsonObjects, Formatting.Indented);
