@@ -116,7 +116,7 @@ namespace PowerBIExtractor
 
             //collapse properties so they work in powerbi
             string[] propertiesToColapse = { "config", "query", "dataTransforms", "filters" };
-            collapseJsonProperties(jsonObjects, propertiesToColapse);
+            JsonHelper.CollapseJsonProperties(jsonObjects, propertiesToColapse);
 
             var outputEncoding = new UnicodeEncoding(bigEndian: false, byteOrderMark: false);
             jsonString = JsonConvert.SerializeObject(jsonObjects, Formatting.Indented);
@@ -132,157 +132,22 @@ namespace PowerBIExtractor
 
             //remove useless properties
             string[] propertiesToRemove = { "createdTimestamp", "lastUpdate", "lastSchemaUpdate", "lastProcessed", "modifiedTime", "structureModifiedTime", "refreshedTime" };
-            removeUselessJsonProperties(jsonObjects, propertiesToRemove);
+            JsonHelper.RemoveJsonProperties(jsonObjects, propertiesToRemove);
 
             //expand properties so we can see changes in them
             string[] propertiesToExpand = { "config", "query", "dataTransforms", "filters"  };
-            expandJsonProperties(jsonObjects, propertiesToExpand);
+            JsonHelper.ExpandJsonProperties(jsonObjects, propertiesToExpand);
 
             //sort the json files so we can check them in source control
             string[] propertiesToSortBy = { "x", "y", "z" };
-            sortJsonProperties(jsonObjects, propertiesToSortBy);
+            JsonHelper.SortJsonProperties(jsonObjects, propertiesToSortBy);
 
             //convert back to a json string
             jsonString = JsonConvert.SerializeObject(jsonObjects, Formatting.Indented);
             File.WriteAllText(filePath, jsonString, Encoding.UTF8);
         }
 
-        private static void removeUselessJsonProperties(JToken token, string[] propertiesToRemove)
-        {
-            if (token.Type == JTokenType.Object)
-            {
-                foreach (JProperty property in token.Children<JProperty>().ToList())
-                {
-                    bool removed = false;
-
-                    if (propertiesToRemove.Contains(property.Name))
-                    {
-                        property.Remove();
-                        removed = true;
-                    }
-
-                    if (!removed)
-                    {
-                        removeUselessJsonProperties(property.Value, propertiesToRemove);
-                    }
-                }
-            }
-            else if (token.Type == JTokenType.Array)
-            {
-                foreach (JToken child in token.Children())
-                {
-                    removeUselessJsonProperties(child, propertiesToRemove);
-                }
-            }
-        }
-
-        private static void expandJsonProperties(JToken token, string[] propertiesToExpand)
-        {
-            if (token.Type == JTokenType.Object)
-            {
-                foreach (JProperty property in token.Children<JProperty>().ToList())
-                {
-                    bool processed = false;
-
-                    if (propertiesToExpand.Contains(property.Name))
-                    {
-                        string jsonStringProperty = property.Value.ToString();
-                        if (jsonStringProperty.StartsWith("{"))
-                        {
-                            JToken expandedProperties = JObject.Parse(jsonStringProperty);
-                            property.Value = expandedProperties;
-                            processed = true;
-                        }
-                        else if (jsonStringProperty.StartsWith("["))
-                        {
-                            JToken expandedProperties = JArray.Parse(jsonStringProperty);
-                            property.Value = expandedProperties;
-                            processed = true;
-                        }
-                    }
-
-                    if (!processed)
-                    {
-                        expandJsonProperties(property.Value, propertiesToExpand);
-                    }
-                }
-            }
-            else if (token.Type == JTokenType.Array)
-            {
-                foreach (JToken child in token.Children())
-                {
-                    expandJsonProperties(child, propertiesToExpand);
-                }
-            }
-        }
-
-        private static void sortJsonProperties(JToken token, string[] propertiesToSortBy)
-        {
-            if (token.Type == JTokenType.Array)
-            {
-                var array = token as JArray;
-                var firstObject = array.First as JToken;
-                if (firstObject is JObject)
-                {
-                    bool hasX = (firstObject as JObject)["x"] != null;
-                    if (hasX)
-                    {
-                        var newArray = new JArray(array.OrderBy(s => s["x"]).ThenBy(s => s["y"]).ThenBy(s => s["z"]));
-                        array.Clear();
-                        foreach (JToken item in newArray.Children())
-                        {
-                            array.Add(item);
-                        }
-                    }
-                }
-
-                foreach (JToken child in token.Children())
-                {
-                    sortJsonProperties(child, propertiesToSortBy);
-                }
-            }
-            else if (token.Type == JTokenType.Object)
-            {
-                foreach (JProperty property in token.Children<JProperty>().ToList())
-                {
-                    sortJsonProperties(property.Value, propertiesToSortBy);
-                }
-            }
-        }
-
-        private static void collapseJsonProperties(JToken token, string[] propertiesToCollapse)
-        {
-            if (token.Type == JTokenType.Object)
-            {
-                foreach (JProperty property in token.Children<JProperty>().ToList())
-                {
-                    bool processed = false;
-
-                    if (propertiesToCollapse.Contains(property.Name))
-                    {
-                        string jsonStringProperty = property.Value.ToString();
-                        if (property.Value.Type == JTokenType.Object || property.Value.Type == JTokenType.Array)
-                        {
-                            var jsonString = JsonConvert.SerializeObject(property.Value, Formatting.None);
-                            property.Value = jsonString;
-                            processed = true;
-                        }
-                    }
-
-                    if (!processed)
-                    {
-                        collapseJsonProperties(property.Value, propertiesToCollapse);
-                    }
-                }
-            }
-            else if (token.Type == JTokenType.Array)
-            {
-                foreach (JToken child in token.Children())
-                {
-                    collapseJsonProperties(child, propertiesToCollapse);
-                }
-            }
-        }
+     
 
         /// <summary>
         /// Launch the legacy application with some options set.
