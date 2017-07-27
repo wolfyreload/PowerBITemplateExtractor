@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System.Linq;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace PowerBIExtractor
 {
@@ -220,7 +221,32 @@ namespace PowerBIExtractor
 
             return result;
         }
+        public static string GetDaxData(JToken jsonObjects)
+        {
+            StringBuilder builder = new StringBuilder();
+            IEnumerable<JToken> measureTables = jsonObjects.SelectTokens("$..measures");
+            foreach (JToken measureTable in measureTables)
+            {
+                string measureTableName = measureTable.Parent.Parent["name"].ToString();
+                builder.AppendLine("=============================");
+                builder.AppendLine(measureTableName);
+                builder.AppendLine("=============================");
+                builder.AppendLine();
+
+                foreach (JToken measure in measureTable.Children())
+                {
+                    string measureName = measure["name"].ToString();
+                    string measureExpression = measure["expression"].ToString();
+
+                    builder.Append(measureName + " =");
+                    builder.AppendLine(measureExpression);
+                    builder.AppendLine();
+                }
+            }
+
+            return builder.ToString();
+        }
     }
 
-
+    
 }

@@ -96,18 +96,25 @@ namespace PowerBIExtractor
             Directory.CreateDirectory(path);
             lauch7zip(string.Format("x {0} -o{1}", fileName, path));
 
-            //prettyfy the json
-            foreach (var option in options.SourceControlOptions)
-            {
-                makeJsonPretty(path, option);
-            }
-      
             //extract the mashupdata
             string mashupFileLocation = Path.Combine(path, "DataMashup");
             string mashupDestinationLocation = Path.Combine(path, "DataMashupSourceData");
-
             lauch7zip(string.Format("x {0} -o{1}", mashupFileLocation, mashupDestinationLocation));
 
+            //prettyfy the json
+            foreach (var option in options.SourceControlOptions)
+            {
+                var jsonObjects = makeJsonPretty(path, option);
+
+                //extract all the Dax information
+                if (option.ExportDaxToFile)
+                {
+                    string daxInformation = JsonHelper.GetDaxData(jsonObjects);
+                    string daxStorageLocation = Path.Combine(mashupDestinationLocation, "Formulas" , "DaxMeasures.txt");
+                    File.WriteAllText(daxStorageLocation, daxInformation);
+
+                }
+            }
 
             //delete unneeded files
             File.Delete(Path.Combine(path, "SecurityBindings"));
@@ -131,7 +138,7 @@ namespace PowerBIExtractor
 
         }
 
-        private static void makeJsonPretty(string basePath, SourceControlOption option)
+        private static JToken makeJsonPretty(string basePath, SourceControlOption option)
         {
             string filePath = Path.Combine(basePath, option.FileName);
             
@@ -153,6 +160,8 @@ namespace PowerBIExtractor
             //convert back to a json string
             jsonString = JsonConvert.SerializeObject(jsonObjects, Formatting.Indented);
             File.WriteAllText(filePath, jsonString, Encoding.UTF8);
+
+            return jsonObjects;
         }
 
      

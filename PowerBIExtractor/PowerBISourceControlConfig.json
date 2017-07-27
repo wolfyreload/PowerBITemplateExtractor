@@ -3,17 +3,18 @@
     {
       "FileName": "DataModelSchema",
       "PropertiesToRemove": [ "createdTimestamp", "lastUpdate", "lastSchemaUpdate", "lastProcessed", "modifiedTime", "structureModifiedTime", "refreshedTime" ],
-      "propertiesToExpand": []
+      "PropertiesToExpand": [],
+      "ExportDaxToFile": true
     },
     {
       "FileName": "Report\\Layout",
       "PropertiesToRemove": [ "query", "dataTransforms"],
-      "propertiesToExpand": [ "config", "filters" ]
+      "PropertiesToExpand": [ "config", "filters" ]
     },
     {
       "FileName": "DiagramState",
       "PropertiesToRemove": [],
-      "propertiesToExpand": []
+      "PropertiesToExpand": []
     }
   ]
 }
