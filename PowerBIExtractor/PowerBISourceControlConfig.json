@@ -4,17 +4,20 @@
       "FileName": "DataModelSchema",
       "PropertiesToRemove": [ "createdTimestamp", "lastUpdate", "lastSchemaUpdate", "lastProcessed", "modifiedTime", "structureModifiedTime", "refreshedTime" ],
       "PropertiesToExpand": [],
-      "ExportDaxToFile": true
+      "ExportDaxToFile": true,
+      "AddFileExtension": ".json"
     },
     {
       "FileName": "Report\\Layout",
       "PropertiesToRemove": [ "query", "dataTransforms" ],
-      "PropertiesToExpand": [ "config", "filters" ]
+      "PropertiesToExpand": [ "config", "filters" ],
+      "AddFileExtension": ".json"
     },
     {
       "FileName": "DiagramState",
       "PropertiesToRemove": [],
-      "PropertiesToExpand": []
+      "PropertiesToExpand": [],
+      "AddFileExtension": ".json"
     },
     {
       "FileName": "SecurityBindings",

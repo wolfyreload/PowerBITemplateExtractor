@@ -102,6 +102,14 @@ namespace PowerBIExtractor
             //convert back to a json string
             jsonString = JsonConvert.SerializeObject(jsonObjects, Formatting.Indented);
             File.WriteAllText(filePath, jsonString, Encoding.UTF8);
+
+            //rename the file with new extension
+            if (option.AddFileExtension != null)
+            {
+                var newFilePath = filePath + option.AddFileExtension;
+                File.Move(filePath, newFilePath);
+            }
+
         }
 
         private static void copyFilesRecursively(DirectoryInfo source, DirectoryInfo target)
@@ -124,6 +132,14 @@ namespace PowerBIExtractor
             if (option.DeleteFile)
                 return;
 
+            //rename file if we have added an extension
+            if (option.AddFileExtension != null)
+            {
+                var filePathWithExtension = filePath + option.AddFileExtension;
+                File.Move(filePathWithExtension, filePath);
+            }
+
+            //read in the file from the file system
             string jsonString = File.ReadAllText(filePath, Encoding.UTF8);
             JObject jsonObjects = JObject.Parse(jsonString);
 

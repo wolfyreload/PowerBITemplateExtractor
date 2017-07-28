@@ -9,9 +9,12 @@
     <None Remove="TestPowerBIImportSource\DataMashupSourceData\Config\Package.xml" />
     <None Remove="TestPowerBIImportSource\DataMashupSourceData\[Content_Types].xml" />
     <None Remove="TestPowerBIImportSource\DataModelSchema" />
+    <None Remove="TestPowerBIImportSource\DataModelSchema.json" />
     <None Remove="TestPowerBIImportSource\DiagramState" />
+    <None Remove="TestPowerBIImportSource\DiagramState.json" />
     <None Remove="TestPowerBIImportSource\Metadata" />
     <None Remove="TestPowerBIImportSource\Report\Layout" />
+    <None Remove="TestPowerBIImportSource\Report\Layout.json" />
     <None Remove="TestPowerBIImportSource\Settings" />
     <None Remove="TestPowerBIImportSource\Version" />
     <None Remove="TestPowerBIImportSource\[Content_Types].xml" />
@@ -31,16 +34,16 @@
     <Content Include="TestPowerBIImportSource\DataMashupSourceData\[Content_Types].xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestPowerBIImportSource\DataModelSchema">
+    <Content Include="TestPowerBIImportSource\DataModelSchema.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestPowerBIImportSource\DiagramState">
+    <Content Include="TestPowerBIImportSource\DiagramState.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestPowerBIImportSource\Metadata">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestPowerBIImportSource\Report\Layout">
+    <Content Include="TestPowerBIImportSource\Report\Layout.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestPowerBIImportSource\Settings">

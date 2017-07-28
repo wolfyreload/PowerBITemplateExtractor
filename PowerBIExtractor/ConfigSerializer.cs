@@ -11,6 +11,12 @@ namespace PowerBIExtractor
         public string[] PropertiesToExpand { get; set; }
         public bool ExportDaxToFile { get; set; }
         public bool DeleteFile { get; set; }
+        public string AddFileExtension { get; set; }
+
+        public SourceControlOption()
+        {
+            AddFileExtension = "";
+        }
     }
 
     public class SourceControlOptionsRoot
