@@ -12,8 +12,7 @@ namespace PowerBIExtractor.Tests
         [TestMethod]
         public void TestExportModel()
         {
-            string configString = File.ReadAllText(".\\PowerBISourceControlConfig.json");
-            var options = JsonConvert.DeserializeObject<SourceControlOptionsRoot>(configString);
+            SourceControlOptionsRoot options = getConfig();
 
             const string exportPath = @".\TestPowerBIExportSource";
             PowerBIUtil.ExportPowerBIModelToSourceFiles(exportPath, "TestPowerBIExport.pbit", options);
@@ -26,15 +25,34 @@ namespace PowerBIExtractor.Tests
         [TestMethod]
         public void TestImportModel()
         {
-            string configString = File.ReadAllText(".\\PowerBISourceControlConfig.json");
-            var options = JsonConvert.DeserializeObject<SourceControlOptionsRoot>(configString);
+            SourceControlOptionsRoot options = getConfig();
 
-            const string exportPath = @".\TestPowerBIImportSource";
-            PowerBIUtil.ImportPowerBIModelFromSourceFiles(exportPath, "TestPowerBIImport.pbit", options);
+            const string importPath = @".\TestPowerBIImportSource";
+            PowerBIUtil.ImportPowerBIModelFromSourceFiles(importPath, "TestPowerBIImport.pbit", options);
 
             bool fileExists = File.Exists("TestPowerBIImport.pbit");
             Assert.IsTrue(fileExists);
         }
 
+        [TestMethod]
+        public void TestExportFollowedByImportModel()
+        {
+            SourceControlOptionsRoot options = getConfig();
+
+            const string exportPath = @".\TestPowerBIExportFollowedByImportSource";
+            PowerBIUtil.ExportPowerBIModelToSourceFiles(exportPath, "TestPowerBIImport.pbit", options);
+            PowerBIUtil.ImportPowerBIModelFromSourceFiles(exportPath, "TestPowerBIExportFollowedByImport.pbit", options);
+
+
+            bool fileExists = File.Exists("TestPowerBIExportFollowedByImport.pbit");
+            Assert.IsTrue(fileExists);
+        }
+
+        private static SourceControlOptionsRoot getConfig()
+        {
+            string configString = File.ReadAllText(".\\PowerBISourceControlConfig.json");
+            var options = JsonConvert.DeserializeObject<SourceControlOptionsRoot>(configString);
+            return options;
+        }
     }
 }
