@@ -7,7 +7,7 @@ using System.Text;
 
 namespace PowerBIExtractor
 {
-    public class JsonHelper
+    public class JsonUtil
     {
         public static void RemoveJsonProperties(JToken token, string[] propertiesToRemove)
         {

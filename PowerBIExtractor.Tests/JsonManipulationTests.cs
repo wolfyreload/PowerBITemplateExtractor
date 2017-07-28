@@ -13,7 +13,7 @@ namespace PowerBIExtractor.Tests
             JObject jsonObjects = JObject.Parse(JsonScripts.TestJson);
 
             string[] propertiesToCount = { "x", "y", "z" };
-            int numberOfMatchingProperties = JsonHelper.CountProperties(jsonObjects, propertiesToCount);
+            int numberOfMatchingProperties = JsonUtil.CountProperties(jsonObjects, propertiesToCount);
 
             Assert.AreEqual(18, numberOfMatchingProperties);
         }
@@ -24,9 +24,9 @@ namespace PowerBIExtractor.Tests
             JObject jsonObjects = JObject.Parse(JsonScripts.TestJson);
 
             string[] propertiesToRemove = { "x", "y", "z", "width", "height", "id" };
-            JsonHelper.RemoveJsonProperties(jsonObjects, propertiesToRemove);
+            JsonUtil.RemoveJsonProperties(jsonObjects, propertiesToRemove);
 
-            int numberOfProperties = JsonHelper.CountProperties(jsonObjects);
+            int numberOfProperties = JsonUtil.CountProperties(jsonObjects);
 
             Assert.AreEqual(13, numberOfProperties);
 
@@ -38,9 +38,9 @@ namespace PowerBIExtractor.Tests
             JObject jsonObjects = JObject.Parse(JsonScripts.TestJson);
 
             string[] propertiesToCollapse = { "config" };
-            JsonHelper.CollapseJsonProperties(jsonObjects, propertiesToCollapse);
+            JsonUtil.CollapseJsonProperties(jsonObjects, propertiesToCollapse);
 
-            int numberOfProperties = JsonHelper.CountProperties(jsonObjects);
+            int numberOfProperties = JsonUtil.CountProperties(jsonObjects);
 
             Assert.AreEqual(19, numberOfProperties);
         }
@@ -51,7 +51,7 @@ namespace PowerBIExtractor.Tests
             JObject jsonObjects = JObject.Parse(JsonScripts.TestJson);
 
             string[] propertiesToSortBy = { "x", "y", "z" };
-            JsonHelper.SortJsonProperties(jsonObjects, propertiesToSortBy);
+            JsonUtil.SortJsonProperties(jsonObjects, propertiesToSortBy);
 
             var firstItem = jsonObjects["items"][0];
             Assert.AreEqual(0, (int)firstItem["x"]);

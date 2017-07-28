@@ -5,6 +5,56 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TestPowerBIImportSource\DataMashup" />
+    <None Remove="TestPowerBIImportSource\DataMashupSourceData\Config\Package.xml" />
+    <None Remove="TestPowerBIImportSource\DataMashupSourceData\[Content_Types].xml" />
+    <None Remove="TestPowerBIImportSource\DataModelSchema" />
+    <None Remove="TestPowerBIImportSource\DiagramState" />
+    <None Remove="TestPowerBIImportSource\Metadata" />
+    <None Remove="TestPowerBIImportSource\Report\Layout" />
+    <None Remove="TestPowerBIImportSource\Settings" />
+    <None Remove="TestPowerBIImportSource\Version" />
+    <None Remove="TestPowerBIImportSource\[Content_Types].xml" />
+    <None Remove="TestPowerBIModel.pbix" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="TestPowerBIExport.pbit">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestPowerBIImportSource\DataMashup">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestPowerBIImportSource\DataMashupSourceData\Config\Package.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestPowerBIImportSource\DataMashupSourceData\[Content_Types].xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestPowerBIImportSource\DataModelSchema">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestPowerBIImportSource\DiagramState">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestPowerBIImportSource\Metadata">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestPowerBIImportSource\Report\Layout">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestPowerBIImportSource\Settings">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestPowerBIImportSource\Version">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestPowerBIImportSource\[Content_Types].xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.1.11" />
     <PackageReference Include="MSTest.TestFramework" Version="1.1.11" />

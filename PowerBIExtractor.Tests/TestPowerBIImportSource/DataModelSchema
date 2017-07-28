@@ -1,0 +1,498 @@
+﻿{
+  "compatibilityLevel": 1400,
+  "model": {
+    "annotations": [
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "1"
+      }
+    ],
+    "culture": "en-US",
+    "dataSources": [
+      {
+        "name": "54048ea6-a7cc-409f-877c-163649dffee5",
+        "connectionString": "provider=Microsoft.PowerBI.OleDb;location=MeasuresTest;global pipe=9cc63b43-c76a-4199-a95c-5a5c9a0b66a7;mashup=\"UEsDBBQAAgAIAHmI/EplUOnzrAAAAPoAAAASABwAQ29uZmlnL1BhY2thZ2UueG1sIKIYACigFAAAAAAAAAAAAAAAAAAAAAAAAAAAAIWPzQqCQBSFX0Vm7x1ntPzhOhJtE4Igop3opEM6ho7pu7XokXqFgjLatTvn41uc87jdMZma2rrKrletjgkDh1hS522hdBmTwZzsgCQCt1l+zkppvWTdR1NfxKQy5hJROo4jjC60XUm54zB6SDe7vJJNRr6y+i/bSvcm07kkAvfvMYKDF4Dnhxx8zpDOGFOl58xgAS4Pl+Ag/cG4HmozdFJIbR9XSOeK9PNDPAFQSwMEFAACAAgAeYj8Sg/K6aukAAAA6QAAABMAHABbQ29udGVudF9UeXBlc10ueG1sIKIYACigFAAAAAAAAAAAAAAAAAAAAAAAAAAAAG2OSw7CMAxErxJ5n7qwQAg1ZQHcgAtEwf2I5qPGReFsLDgSVyBtd4ilZ+Z55vN6V8dkB/GgMfbeKdgUJQhyxt961yqYuJF7ONbV9Rkoihx1UUHHHA6I0XRkdSx8IJedxo9Wcz7HFoM2d90Sbstyh8Y7JseS5x9QV2dq9DSwuKQsr7UZB3Fac3OVAqbEuMj4l7A/eR3C0BvN2cQkbZR2IXEZXn8BUEsDBBQAAgAIAHmI/EpRTUrW5wAAAMgBAAATABwARm9ybXVsYXMvU2VjdGlvbjEubSCiGAAooBQAAAAAAAAAAAAAAAAAAAAAAAAAAABtkE9rwzAMxe+BfAfjXRIwhZ7LDqNjt63Qhl3GDl6q0ID/DEkeG6XffU6ttINVF9tP1u89m6DnMQa1K+tyVVd1RQeLsFfPYCkhUAfE6l454LpSuXYxYQ9Z0doU5U5vwcevPLOOLvlAOnc7++FgURoiN2XUHPXM1qdWGA+Jo1Dk9jJDSu9iPRVf2E8Y/at1CZr/AYx6e4TBJsdFebH+HPnvo/T7bD4VCuF2cjYii7AZup9PmOQj543iqWnUeY/QR9zLwY3Ep7YtPmO4+hVchzbQENFfY1IjUbIlfPNi7cCGDJiHb/zU6hdQSwECLQAUAAIACAB5iPxKZVDp86wAAAD6AAAAEgAAAAAAAAAAAAAAAAAAAAAAQ29uZmlnL1BhY2thZ2UueG1sUEsBAi0AFAACAAgAeYj8Sg/K6aukAAAA6QAAABMAAAAAAAAAAAAAAAAA+AAAAFtDb250ZW50X1R5cGVzXS54bWxQSwECLQAUAAIACAB5iPxKUU1K1ucAAADIAQAAEwAAAAAAAAAAAAAAAADpAQAARm9ybXVsYXMvU2VjdGlvbjEubVBLBQYAAAAAAwADAMIAAAAdAwAAAAA=\"",
+        "impersonationMode": "impersonateCurrentUser"
+      },
+      {
+        "name": "d54f86d0-2595-47d0-9393-83e2d1f9294f",
+        "connectionString": "provider=Microsoft.PowerBI.OleDb;location=Person;global pipe=9cc63b43-c76a-4199-a95c-5a5c9a0b66a7;mashup=\"UEsDBBQAAgAIAHmI/EplUOnzrAAAAPoAAAASABwAQ29uZmlnL1BhY2thZ2UueG1sIKIYACigFAAAAAAAAAAAAAAAAAAAAAAAAAAAAIWPzQqCQBSFX0Vm7x1ntPzhOhJtE4Igop3opEM6ho7pu7XokXqFgjLatTvn41uc87jdMZma2rrKrletjgkDh1hS522hdBmTwZzsgCQCt1l+zkppvWTdR1NfxKQy5hJROo4jjC60XUm54zB6SDe7vJJNRr6y+i/bSvcm07kkAvfvMYKDF4Dnhxx8zpDOGFOl58xgAS4Pl+Ag/cG4HmozdFJIbR9XSOeK9PNDPAFQSwMEFAACAAgAeYj8Sg/K6aukAAAA6QAAABMAHABbQ29udGVudF9UeXBlc10ueG1sIKIYACigFAAAAAAAAAAAAAAAAAAAAAAAAAAAAG2OSw7CMAxErxJ5n7qwQAg1ZQHcgAtEwf2I5qPGReFsLDgSVyBtd4ilZ+Z55vN6V8dkB/GgMfbeKdgUJQhyxt961yqYuJF7ONbV9Rkoihx1UUHHHA6I0XRkdSx8IJedxo9Wcz7HFoM2d90Sbstyh8Y7JseS5x9QV2dq9DSwuKQsr7UZB3Fac3OVAqbEuMj4l7A/eR3C0BvN2cQkbZR2IXEZXn8BUEsDBBQAAgAIAHmI/EoEyIkxnQEAAOcCAAATABwARm9ybXVsYXMvU2VjdGlvbjEubSCiGAAooBQAAAAAAAAAAAAAAAAAAAAAAAAAAABtUtFKwzAUfR/sH0J9SaEUBk4E8aHrHLqJjrVuyJAR27stkCYzSdU59u/ekK6ieF9Kzr0559yTGigsV5Jk/tu76na6HbNlGkoyBW2wdU0E2G6HYGWq1gUgkrNXAfFIq2qmPgwd41w8VEVdgbR0wCXT+3gIhap2Gow5IW4+h09LA37eX1waPd2PplkyH/ffivnE5LtkU+yL2/tBMhP9z/W2/zxJ0974/ulu8shgkYyzUWKSICKe70YWquRyEw+YgYvzMCJpI8idHVgLZiFEGP2TlUXblNr9DohFDyGpwDKyzEBzJvgXlLGzhkNW1/ASEi6JH3arkuUDq9ziKxuRrNbydHoJIx/NWZBumdxgbDneCtqMcs2kWStdpUrUlXRNQ32O0eEQOFpcqLV1jMghaAR+4ceTUFJbNYNKvUPpKU0PxXyvfShX9tc7zZmogf5xGZElxsRqYT1Vs2TgXz5ol3OlvWZL6j00FijG4uEGeFw7AQcfflJs9tH4Y+iyOQhu7DEMvQ6XP3r/xucMGtpYQUlMJk4FMIkEp8v/BHT1DVBLAQItABQAAgAIAHmI/EplUOnzrAAAAPoAAAASAAAAAAAAAAAAAAAAAAAAAABDb25maWcvUGFja2FnZS54bWxQSwECLQAUAAIACAB5iPxKD8rpq6QAAADpAAAAEwAAAAAAAAAAAAAAAAD4AAAAW0NvbnRlbnRfVHlwZXNdLnhtbFBLAQItABQAAgAIAHmI/EoEyIkxnQEAAOcCAAATAAAAAAAAAAAAAAAAAOkBAABGb3JtdWxhcy9TZWN0aW9uMS5tUEsFBgAAAAADAAMAwgAAANMDAAAAAA==\"",
+        "impersonationMode": "impersonateCurrentUser"
+      }
+    ],
+    "tables": [
+      {
+        "name": "DateTableTemplate_14695c18-cb06-40ed-b69c-c2ad9eb765cf",
+        "isHidden": true,
+        "isPrivate": true,
+        "columns": [
+          {
+            "type": "rowNumber",
+            "name": "RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61",
+            "dataType": "int64",
+            "isHidden": true,
+            "isUnique": true,
+            "isKey": true,
+            "isNullable": false,
+            "attributeHierarchy": {
+              "state": "ready"
+            },
+            "annotations": [
+              {
+                "name": "DataTypeAtRefresh",
+                "value": "Int64#####not a type"
+              }
+            ]
+          },
+          {
+            "type": "calculatedTableColumn",
+            "name": "Date",
+            "dataType": "dateTime",
+            "isNameInferred": true,
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "sourceColumn": "[Date]",
+            "dataCategory": "PaddedDateTableDates",
+            "summarizeBy": "none",
+            "attributeHierarchy": {
+              "state": "ready"
+            },
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "Format",
+                "value": "<Format Format=\"DateTimeGeneralPattern\"><DateTimes><DateTime LCID=\"7177\" Group=\"GeneralDateTimeLong\" FormatString=\"G\" /></DateTimes></Format>"
+              },
+              {
+                "name": "DataTypeAtRefresh",
+                "value": "DateTime#####not a type"
+              }
+            ]
+          },
+          {
+            "type": "calculated",
+            "name": "Year",
+            "dataType": "int64",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "expression": "YEAR([Date])",
+            "dataCategory": "Years",
+            "summarizeBy": "none",
+            "attributeHierarchy": {
+              "state": "ready"
+            },
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Year"
+              },
+              {
+                "name": "Format",
+                "value": "<Format Format=\"NumberWhole\" Accuracy=\"0\" />"
+              },
+              {
+                "name": "DataTypeAtRefresh",
+                "value": "Int64#####not a type"
+              }
+            ]
+          },
+          {
+            "type": "calculated",
+            "name": "MonthNo",
+            "dataType": "int64",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "expression": "MONTH([Date])",
+            "dataCategory": "MonthOfYear",
+            "summarizeBy": "none",
+            "attributeHierarchy": {
+              "state": "ready"
+            },
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "MonthNumber"
+              },
+              {
+                "name": "Format",
+                "value": "<Format Format=\"NumberWhole\" Accuracy=\"0\" />"
+              },
+              {
+                "name": "DataTypeAtRefresh",
+                "value": "Int64#####not a type"
+              }
+            ]
+          },
+          {
+            "type": "calculated",
+            "name": "Month",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "expression": "FORMAT([Date], \"MMMM\")",
+            "sortByColumn": "MonthNo",
+            "dataCategory": "Months",
+            "summarizeBy": "none",
+            "attributeHierarchy": {
+              "state": "ready"
+            },
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Month"
+              },
+              {
+                "name": "Format",
+                "value": "<Format Format=\"Text\" />"
+              },
+              {
+                "name": "DataTypeAtRefresh",
+                "value": "String#####not a type"
+              }
+            ]
+          },
+          {
+            "type": "calculated",
+            "name": "QuarterNo",
+            "dataType": "int64",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "expression": "INT(([MonthNo] + 2) / 3)",
+            "dataCategory": "QuarterOfYear",
+            "summarizeBy": "none",
+            "attributeHierarchy": {
+              "state": "ready"
+            },
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "QuarterNumber"
+              },
+              {
+                "name": "Format",
+                "value": "<Format Format=\"NumberWhole\" Accuracy=\"0\" />"
+              },
+              {
+                "name": "DataTypeAtRefresh",
+                "value": "Int64#####not a type"
+              }
+            ]
+          },
+          {
+            "type": "calculated",
+            "name": "Quarter",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "expression": "\"Qtr \" & [QuarterNo]",
+            "sortByColumn": "QuarterNo",
+            "dataCategory": "Quarters",
+            "summarizeBy": "none",
+            "attributeHierarchy": {
+              "state": "ready"
+            },
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Quarter"
+              },
+              {
+                "name": "Format",
+                "value": "<Format Format=\"Text\" />"
+              },
+              {
+                "name": "DataTypeAtRefresh",
+                "value": "String#####not a type"
+              }
+            ]
+          },
+          {
+            "type": "calculated",
+            "name": "Day",
+            "dataType": "int64",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "expression": "DAY([Date])",
+            "dataCategory": "DayOfMonth",
+            "summarizeBy": "none",
+            "attributeHierarchy": {
+              "state": "ready"
+            },
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Day"
+              },
+              {
+                "name": "Format",
+                "value": "<Format Format=\"NumberWhole\" Accuracy=\"0\" />"
+              },
+              {
+                "name": "DataTypeAtRefresh",
+                "value": "Int64#####not a type"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DateTableTemplate_14695c18-cb06-40ed-b69c-c2ad9eb765cf-7abc0541-3041-45e3-bcd8-bb7f3e2bae09",
+            "state": "ready",
+            "source": {
+              "type": "calculated",
+              "expression": "Calendar(Date(2015,1,1), Date(2015,1,1))"
+            }
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Date Hierarchy",
+            "state": "ready",
+            "levels": [
+              {
+                "name": "Year",
+                "ordinal": 0,
+                "column": "Year"
+              },
+              {
+                "name": "Quarter",
+                "ordinal": 1,
+                "column": "Quarter"
+              },
+              {
+                "name": "Month",
+                "ordinal": 2,
+                "column": "Month"
+              },
+              {
+                "name": "Day",
+                "ordinal": 3,
+                "column": "Day"
+              }
+            ],
+            "annotations": [
+              {
+                "name": "TemplateId",
+                "value": "DateHierarchy"
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "__PBI_TemplateDateTable",
+            "value": "true"
+          },
+          {
+            "name": "DefaultItem",
+            "value": "DateHierarchy"
+          }
+        ]
+      },
+      {
+        "name": "Person",
+        "columns": [
+          {
+            "type": "rowNumber",
+            "name": "RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61",
+            "dataType": "int64",
+            "isHidden": true,
+            "isUnique": true,
+            "isKey": true,
+            "isNullable": false,
+            "attributeHierarchy": {
+              "state": "ready"
+            },
+            "annotations": [
+              {
+                "name": "DataTypeAtRefresh",
+                "value": "Int64#####not a type"
+              }
+            ]
+          },
+          {
+            "name": "Name",
+            "dataType": "string",
+            "sourceColumn": "Name",
+            "summarizeBy": "none",
+            "attributeHierarchy": {
+              "state": "ready"
+            },
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "Format",
+                "value": "<Format Format=\"Text\" />"
+              },
+              {
+                "name": "DataTypeAtRefresh",
+                "value": "String#####not a type"
+              },
+              {
+                "name": "PBI_NameAtRefresh",
+                "value": "Name"
+              },
+              {
+                "name": "PBI_WasHiddenAtRefresh",
+                "value": "False"
+              }
+            ]
+          },
+          {
+            "name": "Surname",
+            "dataType": "string",
+            "sourceColumn": "Surname",
+            "summarizeBy": "none",
+            "attributeHierarchy": {
+              "state": "ready"
+            },
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "Format",
+                "value": "<Format Format=\"Text\" />"
+              },
+              {
+                "name": "DataTypeAtRefresh",
+                "value": "String#####not a type"
+              },
+              {
+                "name": "PBI_NameAtRefresh",
+                "value": "Surname"
+              },
+              {
+                "name": "PBI_WasHiddenAtRefresh",
+                "value": "False"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Person-77e2054a-dd6a-4f01-a4d1-5116e2ddd70d",
+            "mode": "import",
+            "state": "ready",
+            "source": {
+              "query": "SELECT * FROM [Person]",
+              "dataSource": "d54f86d0-2595-47d0-9393-83e2d1f9294f"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "2ec6681b-c616-47b5-a3cc-b601dc190fd7"
+          },
+          {
+            "name": "LinkedQueryName",
+            "value": "Person"
+          }
+        ]
+      },
+      {
+        "name": "MeasuresTest",
+        "columns": [
+          {
+            "type": "rowNumber",
+            "name": "RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61",
+            "dataType": "int64",
+            "isHidden": true,
+            "isUnique": true,
+            "isKey": true,
+            "isNullable": false,
+            "attributeHierarchy": {
+              "state": "ready"
+            },
+            "annotations": [
+              {
+                "name": "DataTypeAtRefresh",
+                "value": "Int64#####not a type"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "MeasuresTest-9b3c1943-adaa-44fd-8a12-39d586d0b7aa",
+            "mode": "import",
+            "state": "ready",
+            "source": {
+              "query": "SELECT * FROM [MeasuresTest]",
+              "dataSource": "54048ea6-a7cc-409f-877c-163649dffee5"
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Number Of People Named John",
+            "expression": "\nvar calculatedValue = \nCALCULATE(\nCOUNT(Person[Name]), FILTER(Person, Person[Name] = \"John\" )\n)\nreturn IF(ISBLANK(calculatedValue), 0, calculatedValue)",
+            "formatString": "0",
+            "dataType": "int64",
+            "annotations": [
+              {
+                "name": "Format",
+                "value": "<Format Format=\"NumberWhole\" Accuracy=\"0\" />"
+              }
+            ]
+          },
+          {
+            "name": "Number Of People Last Name Johnson",
+            "expression": "\nvar calculatedValue = \nCALCULATE(\nCOUNT(Person[Name]), FILTER(Person, Person[Name] = \"Johnson\" )\n)\nreturn IF(ISBLANK(calculatedValue), 0, calculatedValue)",
+            "formatString": "0",
+            "dataType": "int64",
+            "annotations": [
+              {
+                "name": "Format",
+                "value": "<Format Format=\"NumberWhole\" Accuracy=\"0\" />"
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "d9bc4229-677b-4358-a560-271efce44d67"
+          },
+          {
+            "name": "LinkedQueryName",
+            "value": "MeasuresTest"
+          }
+        ]
+      }
+    ]
+  },
+  "name": "e4dc9373-9b76-4b30-80ac-111077c86e6f"
+}
