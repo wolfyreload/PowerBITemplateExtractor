@@ -225,10 +225,10 @@ namespace PowerBIExtractor
         {
             StringBuilder builder = new StringBuilder();
             List<JToken> measureTables = jsonObjects.SelectTokens("$..measures").ToList();
-            measureTables = measureTables.OrderBy(m => m.Parent.Parent["name"]).ToList();
+            measureTables = measureTables.OrderBy(m => m.Parent.Parent["name"].ToString().ToLower()).ToList();
             foreach (JToken measureTable in measureTables)
             {
-                List<JToken> measures = measureTable.Children().OrderBy(m => m["name"]).ToList();
+                List<JToken> measures = measureTable.Children().OrderBy(m => m["name"].ToString().ToLower()).ToList();
                 string measureTableName = measureTable.Parent.Parent["name"].ToString();
                 builder.AppendLine("=============================");
                 builder.AppendLine(measureTableName);
