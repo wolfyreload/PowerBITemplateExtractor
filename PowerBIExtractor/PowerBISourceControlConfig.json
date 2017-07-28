@@ -8,13 +8,21 @@
     },
     {
       "FileName": "Report\\Layout",
-      "PropertiesToRemove": [ "query", "dataTransforms"],
+      "PropertiesToRemove": [ "query", "dataTransforms" ],
       "PropertiesToExpand": [ "config", "filters" ]
     },
     {
       "FileName": "DiagramState",
       "PropertiesToRemove": [],
       "PropertiesToExpand": []
+    },
+    {
+      "FileName": "SecurityBindings",
+      "DeleteFile": true
+    },
+    {
+      "FileName": "Report\\LinguisticSchema",
+      "DeleteFile": true
     }
   ]
 }

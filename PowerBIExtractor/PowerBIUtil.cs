@@ -22,7 +22,7 @@ namespace PowerBIExtractor
 
             foreach (var option in options.SourceControlOptions)
             {
-                makeFileUnicode(option);
+                convertSourceFilesToWorkWithPowerBI(option);
             }
 
             //generate the zip file
@@ -37,40 +37,67 @@ namespace PowerBIExtractor
 
         }
 
-        public static void ExportPowerBIModelToSourceFiles(string path, string fileName, SourceControlOptionsRoot options)
+        public static void ExportPowerBIModelToSourceFiles(string destinationPath, string fileName, SourceControlOptionsRoot options)
         {
             if (!File.Exists(fileName)) return;
             //export to folder
-            if (Directory.Exists(path))
-                Directory.Delete(path, recursive: true);
-            Directory.CreateDirectory(path);
-            lauch7zip(string.Format("x {0} -o{1}", fileName, path));
+            if (Directory.Exists(destinationPath))
+                Directory.Delete(destinationPath, recursive: true);
+            Directory.CreateDirectory(destinationPath);
+            lauch7zip(string.Format("x {0} -o{1}", fileName, destinationPath));
 
             //extract the mashupdata
-            string mashupFileLocation = Path.Combine(path, "DataMashup");
-            string mashupDestinationLocation = Path.Combine(path, "DataMashupSourceData");
-            lauch7zip(string.Format("x {0} -o{1}", mashupFileLocation, mashupDestinationLocation));
+            string mashupFileLocation = Path.Combine(destinationPath, "DataMashup");
+            string mashupDestinationPath = Path.Combine(destinationPath, "DataMashupSourceData");
+            lauch7zip(string.Format("x {0} -o{1}", mashupFileLocation, mashupDestinationPath));
 
-            //prettyfy the json
+            //adjust the json files to work better with source control
             foreach (var option in options.SourceControlOptions)
             {
-                var jsonObjects = makeJsonPretty(path, option);
-
-                //extract all the Dax information
-                if (option.ExportDaxToFile)
-                {
-                    string daxInformation = JsonUtil.GetDaxData(jsonObjects);
-                    string daxStorageLocation = Path.Combine(mashupDestinationLocation, "Formulas", "DaxMeasures.txt");
-                    File.WriteAllText(daxStorageLocation, daxInformation);
-
-                }
+                convertSourceFilesToWorkWithGit(destinationPath, option);
             }
-
-            //delete unneeded files
-            File.Delete(Path.Combine(path, "SecurityBindings"));
-            File.Delete(Path.Combine(path, @"Report\LinguisticSchema"));
         }
 
+        private static void convertSourceFilesToWorkWithGit(string destinationPath, SourceControlOption option)
+        {
+
+            //get full file path
+            string filePath = Path.Combine(destinationPath, option.FileName);
+
+            //check if unneeded file
+            if (option.DeleteFile)
+            {
+                File.Delete(filePath);
+                return;
+            }
+
+            //convert json string to jsonObjects
+            string jsonString = File.ReadAllText(filePath, Encoding.Unicode);
+            JObject jsonObjects = JObject.Parse(jsonString);
+
+            //remove useless properties
+            string[] propertiesToRemove = option.PropertiesToRemove;
+            JsonUtil.RemoveJsonProperties(jsonObjects, propertiesToRemove);
+
+            //expand properties so we can see changes in them
+            string[] propertiesToExpand = option.PropertiesToExpand;
+            JsonUtil.ExpandJsonProperties(jsonObjects, propertiesToExpand);
+
+            //extract all the Dax information to a flat file
+            if (option.ExportDaxToFile)
+            {
+                string daxInformation = JsonUtil.GetDaxData(jsonObjects);
+                string daxStorageLocation = Path.Combine(destinationPath, "DaxMeasures.txt");
+                File.WriteAllText(daxStorageLocation, daxInformation);
+            }
+
+            //sort the json files so we can check them in source control
+            jsonObjects = JsonUtil.SortPropertiesAlphabetically(jsonObjects);
+
+            //convert back to a json string
+            jsonString = JsonConvert.SerializeObject(jsonObjects, Formatting.Indented);
+            File.WriteAllText(filePath, jsonString, Encoding.UTF8);
+        }
 
         private static void copyFilesRecursively(DirectoryInfo source, DirectoryInfo target)
         {
@@ -84,15 +111,19 @@ namespace PowerBIExtractor
         }
 
   
-        private static void makeFileUnicode(SourceControlOption option)
+        private static void convertSourceFilesToWorkWithPowerBI(SourceControlOption option)
         {
             string filePath = Path.Combine("Clone", option.FileName);
+
+            //if its a file that is deleted we dont need to convert the file
+            if (option.DeleteFile)
+                return;
 
             string jsonString = File.ReadAllText(filePath, Encoding.UTF8);
             JObject jsonObjects = JObject.Parse(jsonString);
 
             //collapse properties so they work in powerbi
-            string[] propertiesToColapse = option.propertiesToExpand;
+            string[] propertiesToColapse = option.PropertiesToExpand;
             JsonUtil.CollapseJsonProperties(jsonObjects, propertiesToColapse);
 
             var outputEncoding = new UnicodeEncoding(bigEndian: false, byteOrderMark: false);
@@ -100,35 +131,7 @@ namespace PowerBIExtractor
             File.WriteAllText(filePath, jsonString, outputEncoding);
 
         }
-
-        private static JToken makeJsonPretty(string basePath, SourceControlOption option)
-        {
-            string filePath = Path.Combine(basePath, option.FileName);
-
-            //convert json string to jsonObjects
-            string jsonString = File.ReadAllText(filePath, Encoding.Unicode);
-            JObject jsonObjects = JObject.Parse(jsonString);
-
-            //remove useless properties
-            string[] propertiesToRemove = option.PropertiesToRemove;
-            JsonUtil.RemoveJsonProperties(jsonObjects, propertiesToRemove);
-
-            //expand properties so we can see changes in them
-            string[] propertiesToExpand = option.propertiesToExpand;
-            JsonUtil.ExpandJsonProperties(jsonObjects, propertiesToExpand);
-
-            //sort the json files so we can check them in source control
-            jsonObjects = JsonUtil.SortPropertiesAlphabetically(jsonObjects);
-
-            //convert back to a json string
-            jsonString = JsonConvert.SerializeObject(jsonObjects, Formatting.Indented);
-            File.WriteAllText(filePath, jsonString, Encoding.UTF8);
-
-            return jsonObjects;
-        }
-
-
-
+        
         /// <summary>
         /// Launch the legacy application with some options set.
         /// </summary>
