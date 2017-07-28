@@ -238,7 +238,7 @@ namespace PowerBIExtractor
                 foreach (JToken measure in measures)
                 {
                     string measureName = measure["name"].ToString();
-                    string measureExpression = measure["expression"].ToString();
+                    string measureExpression = fixNewLines(measure["expression"].ToString());
 
                     builder.Append(measureName + " =");
                     builder.AppendLine(measureExpression);
@@ -247,6 +247,11 @@ namespace PowerBIExtractor
             }
 
             return builder.ToString();
+        }
+
+        private static string fixNewLines(string text)
+        {
+            return text.Replace("\r\n", "\r").Replace("\n", "\r").Replace("\r", "\r\n");
         }
     }
 
