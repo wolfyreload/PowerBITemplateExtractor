@@ -25,7 +25,12 @@ namespace PowerBIExtractor
                 convertSourceFilesToWorkWithPowerBI(option);
             }
 
-            //generate the zip file
+            //delete the dax file
+            string daxMeasureFile = Path.Combine("Clone", "DaxMeasures.txt");
+            if (File.Exists(daxMeasureFile))
+                File.Delete(daxMeasureFile);
+
+            //generate the powerbi file
             File.Delete(fileName);
             string oldCurrentDirectory = Directory.GetCurrentDirectory();
             Directory.SetCurrentDirectory(destinationPath.FullName);
