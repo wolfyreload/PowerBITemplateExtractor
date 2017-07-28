@@ -26,7 +26,7 @@ namespace PowerBIExtractor
                 foreach (JToken measure in measures)
                 {
                     string measureName = measure["name"].ToString();
-                    string measureExpression = convertToWindowsNewLines(measure["expression"].ToString()).Trim();
+                    string measureExpression = "\n"+convertToWindowsNewLines(measure["expression"].ToString()).Trim();
 
                     //blank out the expression as we going to put it in another file
                     measure["expression"] = "";
@@ -144,7 +144,7 @@ namespace PowerBIExtractor
                     {
                         MeasureTableName = measureTableName.Trim(),
                         MeasureName = measureName.Trim(),
-                        MeasureExpression = measureBuilder.ToString()
+                        MeasureExpression = "\n"+measureBuilder.ToString().Trim()
                     });
                 }
             }
