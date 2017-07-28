@@ -221,38 +221,7 @@ namespace PowerBIExtractor
 
             return result;
         }
-        public static string GetDaxData(JToken jsonObjects)
-        {
-            StringBuilder builder = new StringBuilder();
-            List<JToken> measureTables = jsonObjects.SelectTokens("$..measures").ToList();
-            measureTables = measureTables.OrderBy(m => m.Parent.Parent["name"].ToString().ToLower()).ToList();
-            foreach (JToken measureTable in measureTables)
-            {
-                List<JToken> measures = measureTable.Children().OrderBy(m => m["name"].ToString().ToLower()).ToList();
-                string measureTableName = measureTable.Parent.Parent["name"].ToString();
-                builder.AppendLine("=============================");
-                builder.AppendLine(measureTableName);
-                builder.AppendLine("=============================");
-                builder.AppendLine();
-
-                foreach (JToken measure in measures)
-                {
-                    string measureName = measure["name"].ToString();
-                    string measureExpression = fixNewLines(measure["expression"].ToString());
-
-                    builder.Append(measureName + " =");
-                    builder.AppendLine(measureExpression);
-                    builder.AppendLine();
-                }
-            }
-
-            return builder.ToString();
-        }
-
-        private static string fixNewLines(string text)
-        {
-            return text.Replace("\r\n", "\r").Replace("\n", "\r").Replace("\r", "\r\n");
-        }
+    
     }
 
     

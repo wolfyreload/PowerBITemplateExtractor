@@ -91,8 +91,8 @@ namespace PowerBIExtractor
             //extract all the Dax information to a flat file
             if (option.ExportDaxToFile)
             {
-                string daxInformation = JsonUtil.GetDaxData(jsonObjects);
-                string daxStorageLocation = Path.Combine(destinationPath, "DaxMeasures.txt");
+                string daxInformation = DaxUtil.GetDaxData(jsonObjects);
+                string daxStorageLocation = Path.Combine(destinationPath, "DaxMeasures.md");
                 File.WriteAllText(daxStorageLocation, daxInformation);
             }
 
@@ -146,6 +146,13 @@ namespace PowerBIExtractor
             //collapse properties so they work in powerbi
             string[] propertiesToColapse = option.PropertiesToExpand;
             JsonUtil.CollapseJsonProperties(jsonObjects, propertiesToColapse);
+
+            //write back the dax data into the model
+            if (option.ExportDaxToFile)
+            {
+                string daxStorageLocation = Path.Combine("Clone", "DaxMeasures.md");
+                DaxUtil.WriteDaxData(jsonObjects, daxStorageLocation);
+            }
 
             var outputEncoding = new UnicodeEncoding(bigEndian: false, byteOrderMark: false);
             jsonString = JsonConvert.SerializeObject(jsonObjects, Formatting.Indented);

@@ -10,6 +10,7 @@
     <None Remove="TestPowerBIImportSource\DataMashupSourceData\[Content_Types].xml" />
     <None Remove="TestPowerBIImportSource\DataModelSchema" />
     <None Remove="TestPowerBIImportSource\DataModelSchema.json" />
+    <None Remove="TestPowerBIImportSource\DaxMeasures.md" />
     <None Remove="TestPowerBIImportSource\DiagramState" />
     <None Remove="TestPowerBIImportSource\DiagramState.json" />
     <None Remove="TestPowerBIImportSource\Metadata" />
@@ -35,6 +36,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestPowerBIImportSource\DataModelSchema.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestPowerBIImportSource\DaxMeasures.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestPowerBIImportSource\DiagramState.json">
