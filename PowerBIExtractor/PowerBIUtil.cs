@@ -32,30 +32,26 @@ namespace PowerBIExtractor
 
             //generate the powerbi file
             File.Delete(fileName);
-            string oldCurrentDirectory = Directory.GetCurrentDirectory();
-            Directory.SetCurrentDirectory(destinationPath.FullName);
-            lauch7zip(string.Format(@"a -tZip ..\{0} * -mx9", fileName));
-            Directory.SetCurrentDirectory(oldCurrentDirectory);
+            ZipUtil.CreateArchive(fileName, destinationPath);
 
             //delete the clone folder as we done with it
             if (destinationPath.Exists) destinationPath.Delete(recursive: true);
 
         }
 
+
+
         public static void ExportPowerBIModelToSourceFiles(string destinationPath, string fileName, SourceControlOptionsRoot options)
         {
             if (!File.Exists(fileName)) return;
             //export to folder
-            if (Directory.Exists(destinationPath))
-                Directory.Delete(destinationPath, recursive: true);
-            Directory.CreateDirectory(destinationPath);
-            lauch7zip(string.Format("x {0} -o{1}", fileName, destinationPath));
+            ZipUtil.ExtractArchive(destinationPath, fileName);
 
             //extract the mashupdata
             string mashupFileLocation = Path.Combine(destinationPath, "DataMashup");
             string mashupDestinationPath = Path.Combine(destinationPath, "DataMashupSourceData");
-            lauch7zip(string.Format("x {0} -o{1}", mashupFileLocation, mashupDestinationPath));
-
+            ZipUtil.ExtractArchive(mashupDestinationPath, mashupFileLocation);
+           
             //adjust the json files to work better with source control
             foreach (var option in options.SourceControlOptions)
             {
@@ -160,27 +156,6 @@ namespace PowerBIExtractor
 
         }
         
-        /// <summary>
-        /// Launch the legacy application with some options set.
-        /// </summary>
-        private static void lauch7zip(string arguments)
-        {
-            // For the example
-
-            // Use ProcessStartInfo class
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.CreateNoWindow = false;
-            startInfo.UseShellExecute = false;
-            startInfo.FileName = "7za.exe";
-            startInfo.Arguments = arguments;
-            Console.WriteLine("7za.exe " + arguments);
-
-            // Start the process with the info we specified.
-            // Call WaitForExit and then the using statement will close.
-            using (Process exeProcess = Process.Start(startInfo))
-            {
-                exeProcess.WaitForExit();
-            }
-        }
+    
     }
 }
