@@ -8,12 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PowerBIExtractor
+namespace PowerBITemplateExtractor
 {
     public class PowerBIUtil
     {
-        public static void ImportPowerBIModelFromSourceFiles(string path, string fileName, SourceControlOptionsRoot options)
+        public static void ImportPowerBIModelFromSourceFiles(SourceControlOptionsRoot options)
         {
+            string fileName = options.PowerBITemplatePath;
+            string path = options.PowerBISourceControlPath;
+
             //make a clone of the folder we working with as we want to change the encodings of a couple of files
             var sourcePath = new DirectoryInfo(path);
             var destinationPath = new DirectoryInfo("Clone");
@@ -41,8 +44,11 @@ namespace PowerBIExtractor
 
 
 
-        public static void ExportPowerBIModelToSourceFiles(string destinationPath, string fileName, SourceControlOptionsRoot options)
+        public static void ExportPowerBIModelToSourceFiles(SourceControlOptionsRoot options)
         {
+            string fileName = options.PowerBITemplatePath;
+            string destinationPath = options.PowerBISourceControlPath;
+
             if (!File.Exists(fileName)) return;
             //export to folder
             ZipUtil.ExtractArchive(destinationPath, fileName);

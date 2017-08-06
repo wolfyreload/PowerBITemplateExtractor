@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net461</TargetFrameworks>
+    <ApplicationIcon />
+    <StartupObject />
+    <Authors>Michael van Antwerpen</Authors>
+    <OutputPath>bin\$(Configuration)\$(TargetFramework)\</OutputPath>
+    <RuntimeIdentifiers>win7-x64</RuntimeIdentifiers>
+    <Version>1.0.9</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="*.nupkg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="7za.exe" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always" />
+    <Content Include="PowerBISourceControlConfig.json" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+</Project>

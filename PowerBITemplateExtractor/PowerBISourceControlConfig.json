@@ -27,5 +27,8 @@
       "FileName": "Report\\LinguisticSchema",
       "DeleteFile": true
     }
-  ]
+  ],
+  "PowerBITemplatePath": ".\\PowerBITemplatePath.pbit",
+  "PowerBISourceControlPath": ".\\PowerBISourcePath"
+
 }

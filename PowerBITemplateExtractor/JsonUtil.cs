@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PowerBIExtractor
+namespace PowerBITemplateExtractor
 {
     public class JsonUtil
     {

@@ -8,9 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PowerBIExtractor.Tests {
+namespace PowerBITemplateExtractor.Tests {
     using System;
-    using System.Reflection;
     
     
     /// <summary>
@@ -40,7 +39,7 @@ namespace PowerBIExtractor.Tests {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PowerBIExtractor.Tests.JsonScripts", typeof(JsonScripts).GetTypeInfo().Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PowerBITemplateExtractor.Tests.JsonScripts", typeof(JsonScripts).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

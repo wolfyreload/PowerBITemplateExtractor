@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PowerBIExtractor
+namespace PowerBITemplateExtractor
 {
     public class SourceControlOption
     {
@@ -22,5 +22,7 @@ namespace PowerBIExtractor
     public class SourceControlOptionsRoot
     {
         public SourceControlOption[] SourceControlOptions { get; set; }
+        public string PowerBITemplatePath { get; set; }
+        public string PowerBISourceControlPath { get; set; }
     }
 }

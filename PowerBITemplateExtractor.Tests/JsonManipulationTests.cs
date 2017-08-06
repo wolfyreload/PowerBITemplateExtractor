@@ -2,7 +2,7 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 
-namespace PowerBIExtractor.Tests
+namespace PowerBITemplateExtractor.Tests
 {
     [TestClass]
     public class JsonManipulationTests

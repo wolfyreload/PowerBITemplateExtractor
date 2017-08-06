@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBIExtractor", "PowerBIExtractor\PowerBIExtractor.csproj", "{6B51F44E-BC77-4E05-84D0-CC8541091F34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBITemplateExtractor", "PowerBITemplateExtractor\PowerBITemplateExtractor.csproj", "{6B51F44E-BC77-4E05-84D0-CC8541091F34}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBIExtractor.Tests", "PowerBIExtractor.Tests\PowerBIExtractor.Tests.csproj", "{9E66EE52-5703-490E-8A51-BAAE55EF14F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBITemplateExtractor.Tests", "PowerBITemplateExtractor.Tests\PowerBITemplateExtractor.Tests.csproj", "{9E66EE52-5703-490E-8A51-BAAE55EF14F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
