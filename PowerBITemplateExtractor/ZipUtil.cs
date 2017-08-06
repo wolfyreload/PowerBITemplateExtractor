@@ -1,29 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PowerBITemplateExtractor
 {
     public class ZipUtil
     {
-        public static void CreateArchive(string fileName, DirectoryInfo destinationPath)
+        public static void CreateArchive(string sourcePath, string fileName)
         {
             string oldCurrentDirectory = Directory.GetCurrentDirectory();
-            Directory.SetCurrentDirectory(destinationPath.FullName);
+            Directory.SetCurrentDirectory(sourcePath);
             lauch7zip(string.Format(@"a -tZip ..\{0} * -mx9", fileName));
             Directory.SetCurrentDirectory(oldCurrentDirectory);
         }
 
         public static void ExtractArchive(string destinationPath, string fileName)
         {
-            if (Directory.Exists(destinationPath))
-                Directory.Delete(destinationPath, recursive: true);
             Directory.CreateDirectory(destinationPath);
-            lauch7zip(string.Format("x {0} -o{1}", fileName, destinationPath));
+            lauch7zip(string.Format("x {0} -o{1} -y", fileName, destinationPath));
         }
 
 

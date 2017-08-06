@@ -15,29 +15,31 @@ namespace PowerBITemplateExtractor
         public static void ImportPowerBIModelFromSourceFiles(SourceControlOptionsRoot options)
         {
             string fileName = options.PowerBITemplatePath;
-            string path = options.PowerBISourceControlPath;
+            string sourcePath = options.PowerBISourceControlPath;
 
             //make a clone of the folder we working with as we want to change the encodings of a couple of files
-            var sourcePath = new DirectoryInfo(path);
-            var clonePath = new DirectoryInfo("Clone");
-            if (clonePath.Exists) clonePath.Delete(recursive: true);
+            string clonePath = new DirectoryInfo(sourcePath).Parent.FullName + "\\clone";
             copyFilesRecursively(sourcePath, clonePath);
 
             foreach (var option in options.SourceControlOptions)
             {
-                convertSourceFilesToWorkWithPowerBI(option);
+                convertSourceFilesToWorkWithPowerBI(clonePath, option);
             }
-            
+
             //generate the powerbi file
             File.Delete(fileName);
-            ZipUtil.CreateArchive(fileName, clonePath);
+            ZipUtil.CreateArchive(clonePath, fileName);
 
             //delete the clone folder as we done with it
-            clonePath.Refresh();
-            clonePath.Delete(recursive: true);
+            deleteDirectory(clonePath);
         }
 
-
+        private static void deleteDirectory(string clonePath)
+        {
+            var directoryInfo = new DirectoryInfo(clonePath);
+            directoryInfo.Refresh();
+            directoryInfo.Delete(recursive: true);
+        }
 
         public static void ExportPowerBIModelToSourceFiles(SourceControlOptionsRoot options)
         {
@@ -47,7 +49,7 @@ namespace PowerBITemplateExtractor
             if (!File.Exists(fileName)) return;
             //export to folder
             ZipUtil.ExtractArchive(destinationPath, fileName);
-     
+
             //adjust the json files to work better with source control
             foreach (var option in options.SourceControlOptions)
             {
@@ -115,21 +117,24 @@ namespace PowerBITemplateExtractor
 
         }
 
-        private static void copyFilesRecursively(DirectoryInfo source, DirectoryInfo target)
+        private static void copyFilesRecursively(string sourcePath, string targetPath)
         {
-            foreach (DirectoryInfo dir in source.GetDirectories())
+            DirectoryInfo sourceDirectoryInfo = new DirectoryInfo(sourcePath);
+            DirectoryInfo targetDirectoryInfo = new DirectoryInfo(targetPath);
+
+            foreach (DirectoryInfo subDirectory in sourceDirectoryInfo.GetDirectories())
             {
-                if (dir.Name != "DataMashupSourceData")
-                    copyFilesRecursively(dir, target.CreateSubdirectory(dir.Name));
+                var newTargetSubDirectory = targetDirectoryInfo.CreateSubdirectory(subDirectory.Name);
+                copyFilesRecursively(subDirectory.FullName, newTargetSubDirectory.FullName);
             }
-            foreach (FileInfo file in source.GetFiles())
-                file.CopyTo(Path.Combine(target.FullName, file.Name));
+            foreach (FileInfo file in sourceDirectoryInfo.GetFiles())
+                file.CopyTo(Path.Combine(targetDirectoryInfo.FullName, file.Name));
         }
 
-  
-        private static void convertSourceFilesToWorkWithPowerBI(SourceControlOption option)
+
+        private static void convertSourceFilesToWorkWithPowerBI(string sourcePath, SourceControlOption option)
         {
-            string filePath = Path.Combine("Clone", option.FileName);
+            string filePath = Path.Combine(sourcePath, option.FileName);
 
             //if its a file that is deleted we dont need to convert the file
             if (option.DeleteFile)
@@ -155,7 +160,7 @@ namespace PowerBITemplateExtractor
                 //write back the dax data into the model
                 if (option.ExportDaxToFile)
                 {
-                    string daxStorageLocation = Path.Combine("Clone", "DaxMeasures.md");
+                    string daxStorageLocation = Path.Combine(sourcePath, "DaxMeasures.md");
                     DaxUtil.WriteDaxData(jsonObjects, daxStorageLocation);
                 }
 
