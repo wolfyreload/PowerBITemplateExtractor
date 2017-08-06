@@ -42,12 +42,12 @@ namespace PowerBITemplateExtractor.Tests
             options1.PowerBISourceControlPath = @".\TestPowerBIExportFollowedByImportSource";
 
             SourceControlOptionsRoot options2 = getConfig();
-            options1.PowerBITemplatePath = "TestPowerBIExportFollowedByImport.pbit";
-            options1.PowerBISourceControlPath = @".\TestPowerBIExportFollowedByImportSource";
+            options2.PowerBITemplatePath = "TestPowerBIExportFollowedByImport.pbit";
+            options2.PowerBISourceControlPath = @".\TestPowerBIExportFollowedByImportSource";
 
 
             PowerBIUtil.ExportPowerBIModelToSourceFiles(options1);
-            PowerBIUtil.ImportPowerBIModelFromSourceFiles(options1);
+            PowerBIUtil.ImportPowerBIModelFromSourceFiles(options2);
 
 
             bool fileExists = File.Exists(options1.PowerBITemplatePath);
