@@ -107,10 +107,10 @@ namespace PowerBITemplateExtractor
             }
 
             //rename the file with new extension
-            if (option.AddFileExtension != null)
+            if (!string.IsNullOrWhiteSpace(option.AddFileExtension))
             {
                 var newFilePath = filePath + option.AddFileExtension;
-                File.Move(filePath, newFilePath);
+                renameFile(filePath, newFilePath);
             }
 
         }
@@ -138,10 +138,10 @@ namespace PowerBITemplateExtractor
             if (option.IsJsonFile)
             {
                 //rename file if we have added an extension
-                if (option.AddFileExtension != null)
+                if (!string.IsNullOrWhiteSpace(option.AddFileExtension))
                 {
                     var filePathWithExtension = filePath + option.AddFileExtension;
-                    File.Move(filePathWithExtension, filePath);
+                    renameFile(filePathWithExtension, filePath);
                 }
 
                 //read in the file from the file system
@@ -164,7 +164,13 @@ namespace PowerBITemplateExtractor
                 File.WriteAllText(filePath, jsonString, outputEncoding);
             }
         }
-        
-    
+
+        private static void renameFile(string oldFulePath, string newFilePath)
+        {
+            File.Delete(newFilePath);
+            File.Copy(oldFulePath, newFilePath);
+            File.Delete(oldFulePath);
+        }
+
     }
 }
