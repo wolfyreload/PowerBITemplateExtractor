@@ -12,6 +12,9 @@ namespace PowerBITemplateExtractor
         public bool ExportDaxToFile { get; set; }
         public bool DeleteFile { get; set; }
         public string AddFileExtension { get; set; }
+        public bool TreatAsArchive { get; set; }
+        public string ArchiveDestinationPath { get; set; }
+        public bool IsJsonFile { get; set; }
 
         public SourceControlOption()
         {

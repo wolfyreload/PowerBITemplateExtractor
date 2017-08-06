@@ -27,12 +27,7 @@ namespace PowerBITemplateExtractor
             {
                 convertSourceFilesToWorkWithPowerBI(option);
             }
-
-            //delete the dax file
-            string daxMeasureFile = Path.Combine("Clone", "DaxMeasures.txt");
-            if (File.Exists(daxMeasureFile))
-                File.Delete(daxMeasureFile);
-
+            
             //generate the powerbi file
             File.Delete(fileName);
             ZipUtil.CreateArchive(fileName, destinationPath);
@@ -52,12 +47,7 @@ namespace PowerBITemplateExtractor
             if (!File.Exists(fileName)) return;
             //export to folder
             ZipUtil.ExtractArchive(destinationPath, fileName);
-
-            //extract the mashupdata
-            string mashupFileLocation = Path.Combine(destinationPath, "DataMashup");
-            string mashupDestinationPath = Path.Combine(destinationPath, "DataMashupSourceData");
-            ZipUtil.ExtractArchive(mashupDestinationPath, mashupFileLocation);
-           
+     
             //adjust the json files to work better with source control
             foreach (var option in options.SourceControlOptions)
             {
@@ -78,32 +68,43 @@ namespace PowerBITemplateExtractor
                 return;
             }
 
-            //convert json string to jsonObjects
-            string jsonString = File.ReadAllText(filePath, Encoding.Unicode);
-            JObject jsonObjects = JObject.Parse(jsonString);
-
-            //remove useless properties
-            var propertiesToRemove = option.PropertiesToRemove;
-            JsonUtil.RemoveJsonProperties(jsonObjects, propertiesToRemove);
-
-            //expand properties so we can see changes in them
-            var propertiesToExpand = option.PropertiesToExpand;
-            JsonUtil.ExpandJsonProperties(jsonObjects, propertiesToExpand);
-
-            //extract all the Dax information to a flat file
-            if (option.ExportDaxToFile)
+            //if the file we working with is an archive extract that file
+            if (option.TreatAsArchive)
             {
-                string daxInformation = DaxUtil.GetDaxData(jsonObjects);
-                string daxStorageLocation = Path.Combine(destinationPath, "DaxMeasures.md");
-                File.WriteAllText(daxStorageLocation, daxInformation);
+                string archivePath = Path.Combine(destinationPath, option.FileName);
+                string archiveExtractDestinationPath = Path.Combine(destinationPath, option.ArchiveDestinationPath);
+                ZipUtil.ExtractArchive(archiveExtractDestinationPath, archivePath);
             }
 
-            //sort the json files so we can check them in source control
-            jsonObjects = JsonUtil.SortPropertiesAlphabetically(jsonObjects);
+            if (option.IsJsonFile)
+            {
+                //convert json string to jsonObjects
+                string jsonString = File.ReadAllText(filePath, Encoding.Unicode);
+                JObject jsonObjects = JObject.Parse(jsonString);
 
-            //convert back to a json string
-            jsonString = JsonConvert.SerializeObject(jsonObjects, Formatting.Indented);
-            File.WriteAllText(filePath, jsonString, Encoding.UTF8);
+                //remove useless properties
+                var propertiesToRemove = option.PropertiesToRemove;
+                JsonUtil.RemoveJsonProperties(jsonObjects, propertiesToRemove);
+
+                //expand properties so we can see changes in them
+                var propertiesToExpand = option.PropertiesToExpand;
+                JsonUtil.ExpandJsonProperties(jsonObjects, propertiesToExpand);
+
+                //extract all the Dax information to a flat file
+                if (option.ExportDaxToFile)
+                {
+                    string daxInformation = DaxUtil.GetDaxData(jsonObjects);
+                    string daxStorageLocation = Path.Combine(destinationPath, "DaxMeasures.md");
+                    File.WriteAllText(daxStorageLocation, daxInformation);
+                }
+
+                //sort the json files so we can check them in source control
+                jsonObjects = JsonUtil.SortPropertiesAlphabetically(jsonObjects);
+
+                //convert back to a json string
+                jsonString = JsonConvert.SerializeObject(jsonObjects, Formatting.Indented);
+                File.WriteAllText(filePath, jsonString, Encoding.UTF8);
+            }
 
             //rename the file with new extension
             if (option.AddFileExtension != null)
@@ -134,32 +135,34 @@ namespace PowerBITemplateExtractor
             if (option.DeleteFile)
                 return;
 
-            //rename file if we have added an extension
-            if (option.AddFileExtension != null)
+            if (option.IsJsonFile)
             {
-                var filePathWithExtension = filePath + option.AddFileExtension;
-                File.Move(filePathWithExtension, filePath);
+                //rename file if we have added an extension
+                if (option.AddFileExtension != null)
+                {
+                    var filePathWithExtension = filePath + option.AddFileExtension;
+                    File.Move(filePathWithExtension, filePath);
+                }
+
+                //read in the file from the file system
+                string jsonString = File.ReadAllText(filePath, Encoding.UTF8);
+                JObject jsonObjects = JObject.Parse(jsonString);
+
+                //collapse properties so they work in powerbi
+                var propertiesToColapse = option.PropertiesToExpand;
+                JsonUtil.CollapseJsonProperties(jsonObjects, propertiesToColapse);
+
+                //write back the dax data into the model
+                if (option.ExportDaxToFile)
+                {
+                    string daxStorageLocation = Path.Combine("Clone", "DaxMeasures.md");
+                    DaxUtil.WriteDaxData(jsonObjects, daxStorageLocation);
+                }
+
+                var outputEncoding = new UnicodeEncoding(bigEndian: false, byteOrderMark: false);
+                jsonString = JsonConvert.SerializeObject(jsonObjects, Formatting.Indented);
+                File.WriteAllText(filePath, jsonString, outputEncoding);
             }
-
-            //read in the file from the file system
-            string jsonString = File.ReadAllText(filePath, Encoding.UTF8);
-            JObject jsonObjects = JObject.Parse(jsonString);
-
-            //collapse properties so they work in powerbi
-            var propertiesToColapse = option.PropertiesToExpand;
-            JsonUtil.CollapseJsonProperties(jsonObjects, propertiesToColapse);
-
-            //write back the dax data into the model
-            if (option.ExportDaxToFile)
-            {
-                string daxStorageLocation = Path.Combine("Clone", "DaxMeasures.md");
-                DaxUtil.WriteDaxData(jsonObjects, daxStorageLocation);
-            }
-
-            var outputEncoding = new UnicodeEncoding(bigEndian: false, byteOrderMark: false);
-            jsonString = JsonConvert.SerializeObject(jsonObjects, Formatting.Indented);
-            File.WriteAllText(filePath, jsonString, outputEncoding);
-
         }
         
     

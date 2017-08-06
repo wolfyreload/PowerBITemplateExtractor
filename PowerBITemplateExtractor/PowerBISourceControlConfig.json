@@ -4,17 +4,20 @@
       "FileName": "DataModelSchema",
       "PropertiesToRemove": [ "createdTimestamp", "lastUpdate", "lastSchemaUpdate", "lastProcessed", "modifiedTime", "structureModifiedTime", "refreshedTime", "state", "connectionString" ],
       "ExportDaxToFile": true,
-      "AddFileExtension": ".json"
+      "AddFileExtension": ".json",
+      "IsJsonFile":  true
     },
     {
       "FileName": "Report\\Layout",
       "PropertiesToRemove": [ "query", "dataTransforms" ],
       "PropertiesToExpand": [ "config", "filters" ],
-      "AddFileExtension": ".json"
+      "AddFileExtension": ".json",
+      "IsJsonFile": true
     },
     {
       "FileName": "DiagramState",
-      "AddFileExtension": ".json"
+      "AddFileExtension": ".json",
+      "IsJsonFile": true
     },
     {
       "FileName": "SecurityBindings",
@@ -23,6 +26,11 @@
     {
       "FileName": "Report\\LinguisticSchema",
       "DeleteFile": true
+    },
+    {
+      "FileName": "DataMashup",
+      "TreatAsArchive": true,
+      "ArchiveDestinationPath": "DataMashupSourceData"
     }
   ],
   "PowerBITemplatePath": ".\\PowerBITemplatePath.pbit",
