@@ -19,9 +19,9 @@ namespace PowerBITemplateExtractor
 
             //make a clone of the folder we working with as we want to change the encodings of a couple of files
             var sourcePath = new DirectoryInfo(path);
-            var destinationPath = new DirectoryInfo("Clone");
-            if (destinationPath.Exists) destinationPath.Delete(recursive: true);
-            copyFilesRecursively(sourcePath, destinationPath);
+            var clonePath = new DirectoryInfo("Clone");
+            if (clonePath.Exists) clonePath.Delete(recursive: true);
+            copyFilesRecursively(sourcePath, clonePath);
 
             foreach (var option in options.SourceControlOptions)
             {
@@ -30,11 +30,11 @@ namespace PowerBITemplateExtractor
             
             //generate the powerbi file
             File.Delete(fileName);
-            ZipUtil.CreateArchive(fileName, destinationPath);
+            ZipUtil.CreateArchive(fileName, clonePath);
 
             //delete the clone folder as we done with it
-            if (destinationPath.Exists) destinationPath.Delete(recursive: true);
-
+            clonePath.Refresh();
+            clonePath.Delete(recursive: true);
         }
 
 
