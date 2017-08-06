@@ -2,8 +2,7 @@
   "SourceControlOptions": [
     {
       "FileName": "DataModelSchema",
-      "PropertiesToRemove": [ "createdTimestamp", "lastUpdate", "lastSchemaUpdate", "lastProcessed", "modifiedTime", "structureModifiedTime", "refreshedTime" ],
-      "PropertiesToExpand": [],
+      "PropertiesToRemove": [ "createdTimestamp", "lastUpdate", "lastSchemaUpdate", "lastProcessed", "modifiedTime", "structureModifiedTime", "refreshedTime", "state", "connectionString" ],
       "ExportDaxToFile": true,
       "AddFileExtension": ".json"
     },
@@ -15,8 +14,6 @@
     },
     {
       "FileName": "DiagramState",
-      "PropertiesToRemove": [],
-      "PropertiesToExpand": [],
       "AddFileExtension": ".json"
     },
     {

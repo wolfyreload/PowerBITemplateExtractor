@@ -83,11 +83,11 @@ namespace PowerBITemplateExtractor
             JObject jsonObjects = JObject.Parse(jsonString);
 
             //remove useless properties
-            string[] propertiesToRemove = option.PropertiesToRemove;
+            var propertiesToRemove = option.PropertiesToRemove;
             JsonUtil.RemoveJsonProperties(jsonObjects, propertiesToRemove);
 
             //expand properties so we can see changes in them
-            string[] propertiesToExpand = option.PropertiesToExpand;
+            var propertiesToExpand = option.PropertiesToExpand;
             JsonUtil.ExpandJsonProperties(jsonObjects, propertiesToExpand);
 
             //extract all the Dax information to a flat file
@@ -146,7 +146,7 @@ namespace PowerBITemplateExtractor
             JObject jsonObjects = JObject.Parse(jsonString);
 
             //collapse properties so they work in powerbi
-            string[] propertiesToColapse = option.PropertiesToExpand;
+            var propertiesToColapse = option.PropertiesToExpand;
             JsonUtil.CollapseJsonProperties(jsonObjects, propertiesToColapse);
 
             //write back the dax data into the model

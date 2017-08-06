@@ -7,8 +7,8 @@ namespace PowerBITemplateExtractor
     public class SourceControlOption
     {
         public string FileName { get; set; }
-        public string[] PropertiesToRemove { get; set; }
-        public string[] PropertiesToExpand { get; set; }
+        public List<string> PropertiesToRemove { get; set; }
+        public List<string> PropertiesToExpand { get; set; }
         public bool ExportDaxToFile { get; set; }
         public bool DeleteFile { get; set; }
         public string AddFileExtension { get; set; }
@@ -16,6 +16,8 @@ namespace PowerBITemplateExtractor
         public SourceControlOption()
         {
             AddFileExtension = "";
+            PropertiesToExpand = new List<string>();
+            PropertiesToRemove = new List<string>();
         }
     }
 

@@ -9,7 +9,7 @@ namespace PowerBITemplateExtractor
 {
     public class JsonUtil
     {
-        public static void RemoveJsonProperties(JToken token, string[] propertiesToRemove)
+        public static void RemoveJsonProperties(JToken token, List<string> propertiesToRemove)
         {
             if (token.Type == JTokenType.Object)
             {
@@ -38,7 +38,7 @@ namespace PowerBITemplateExtractor
             }
         }
 
-        public static void ExpandJsonProperties(JToken token, string[] propertiesToExpand)
+        public static void ExpandJsonProperties(JToken token, List<string> propertiesToExpand)
         {
             if (token.Type == JTokenType.Object)
             {
@@ -136,7 +136,7 @@ namespace PowerBITemplateExtractor
         }
 
 
-        public static void CollapseJsonProperties(JToken token, string[] propertiesToCollapse)
+        public static void CollapseJsonProperties(JToken token, List<string> propertiesToCollapse)
         {
             if (token.Type == JTokenType.Object)
             {

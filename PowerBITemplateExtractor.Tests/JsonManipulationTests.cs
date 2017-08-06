@@ -1,6 +1,7 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace PowerBITemplateExtractor.Tests
 {
@@ -23,7 +24,7 @@ namespace PowerBITemplateExtractor.Tests
         {
             JObject jsonObjects = JObject.Parse(JsonScripts.TestJson);
 
-            string[] propertiesToRemove = { "x", "y", "z", "width", "height", "id" };
+            var propertiesToRemove = new List<string>() { "x", "y", "z", "width", "height", "id" };
             JsonUtil.RemoveJsonProperties(jsonObjects, propertiesToRemove);
 
             int numberOfProperties = JsonUtil.CountProperties(jsonObjects);
@@ -37,7 +38,7 @@ namespace PowerBITemplateExtractor.Tests
         {
             JObject jsonObjects = JObject.Parse(JsonScripts.TestJson);
 
-            string[] propertiesToCollapse = { "config" };
+            var propertiesToCollapse = new List<string>(){ "config" };
             JsonUtil.CollapseJsonProperties(jsonObjects, propertiesToCollapse);
 
             int numberOfProperties = JsonUtil.CountProperties(jsonObjects);
