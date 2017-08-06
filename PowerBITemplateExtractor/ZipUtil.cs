@@ -30,7 +30,7 @@ namespace PowerBITemplateExtractor
 
             // Use ProcessStartInfo class
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.CreateNoWindow = false;
+            startInfo.CreateNoWindow = true;
             startInfo.UseShellExecute = false;
             startInfo.FileName = "7za.exe";
             startInfo.Arguments = arguments;

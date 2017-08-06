@@ -25,7 +25,7 @@ namespace PowerBITemplateExtractor
                 return;
             }
 
-            if (args[0] != "--Export" && args[0] != "--Import")
+            if (args[0] != "Export" && args[0] != "Import")
             {
                 showIncorrectUse();
                 return;
@@ -37,12 +37,13 @@ namespace PowerBITemplateExtractor
                 return;
             }
 
-            operationType = args[0] == "--Export" ? OperationType.Export : OperationType.Import;
+            operationType = args[0] == "Export" ? OperationType.Export : OperationType.Import;
             configPath = args[2];
 
             if (!File.Exists(configPath))
             {
-                Console.WriteLine(string.Format("Config file '{configPath}' does not exist", configPath));
+                Console.WriteLine($"Config file '{configPath}' does not exist");
+                showIncorrectUse();
                 return;
             }
 
@@ -63,7 +64,7 @@ namespace PowerBITemplateExtractor
         {
             Console.WriteLine(@"
 PowerBI Template Extractor
-Usage: PowerbITemplateExtractor [command] [arguments]
+Usage: PowerbITemplateExtractor [command] --Config <PathToConfigFile>
 
 Arguments:
   [command]             The command to execute
@@ -75,9 +76,6 @@ Common options:
 Commands:
   Export        Exports a PowerBI template file into source files
   Import        Imports a PowerBI template file from source files
-
-Arguments:
-  --Config      The path to the configuration file 
 ");            
         }
     }
