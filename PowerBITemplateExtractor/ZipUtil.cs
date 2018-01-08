@@ -6,6 +6,12 @@ namespace PowerBITemplateExtractor
 {
     public class ZipUtil
     {
+        public static string SevenZipExecutablePath {
+            get {
+                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "7za.exe");
+            }
+        }
+
         public static void CreateArchive(string sourcePath, string fileName)
         {
             string oldCurrentDirectory = Directory.GetCurrentDirectory();
@@ -32,9 +38,9 @@ namespace PowerBITemplateExtractor
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
             startInfo.UseShellExecute = false;
-            startInfo.FileName = "7za.exe";
+            startInfo.FileName = SevenZipExecutablePath;
             startInfo.Arguments = arguments;
-            Console.WriteLine("7za.exe " + arguments);
+            Console.WriteLine(SevenZipExecutablePath + " " + arguments);
 
             // Start the process with the info we specified.
             // Call WaitForExit and then the using statement will close.

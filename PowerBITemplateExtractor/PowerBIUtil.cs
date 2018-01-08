@@ -19,6 +19,7 @@ namespace PowerBITemplateExtractor
 
             //make a clone of the folder we working with as we want to change the encodings of a couple of files
             string clonePath = new DirectoryInfo(sourcePath).Parent.FullName + "\\clone";
+            deleteDirectory(clonePath);
             copyFilesRecursively(sourcePath, clonePath);
 
             foreach (var option in options.SourceControlOptions)
@@ -38,7 +39,10 @@ namespace PowerBITemplateExtractor
         {
             var directoryInfo = new DirectoryInfo(clonePath);
             directoryInfo.Refresh();
-            directoryInfo.Delete(recursive: true);
+            if (directoryInfo.Exists)
+            {
+                directoryInfo.Delete(recursive: true);
+            }
         }
 
         public static void ExportPowerBIModelToSourceFiles(SourceControlOptionsRoot options)
