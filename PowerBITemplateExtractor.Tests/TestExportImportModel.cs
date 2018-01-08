@@ -38,7 +38,7 @@ namespace PowerBITemplateExtractor.Tests
         public void TestExportFollowedByImportModel()
         {
             SourceControlOptionsRoot options1 = getConfig();
-            options1.PowerBITemplatePath = "TestPowerBIImport.pbit";
+            options1.PowerBITemplatePath = "TestPowerBIExport.pbit";
             options1.PowerBISourceControlPath = @".\TestPowerBIExportFollowedByImportSource";
 
             SourceControlOptionsRoot options2 = getConfig();

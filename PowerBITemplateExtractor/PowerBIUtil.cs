@@ -104,6 +104,13 @@ namespace PowerBITemplateExtractor
                     File.WriteAllText(daxStorageLocation, daxInformation);
                 }
 
+                //extract layout file
+                if (option.FileName == "Report\\Layout")
+                {
+                    string layoutStorageLocation = Path.Combine(destinationPath, "Report", "LayoutFiles");
+                    LayoutUtil.ExtractLayouts(jsonObjects, layoutStorageLocation);
+                }
+
                 //sort the json files so we can check them in source control
                 jsonObjects = JsonUtil.SortPropertiesAlphabetically(jsonObjects);
 
@@ -156,6 +163,13 @@ namespace PowerBITemplateExtractor
                 //read in the file from the file system
                 string jsonString = File.ReadAllText(filePath, Encoding.UTF8);
                 JObject jsonObjects = JObject.Parse(jsonString);
+
+                //restore layout file
+                if (option.FileName == "Report\\Layout")
+                {
+                    string layoutStorageLocation = Path.Combine(sourcePath, "Report", "LayoutFiles");
+                    LayoutUtil.WriteLayouts(jsonObjects, layoutStorageLocation);
+                }
 
                 //collapse properties so they work in powerbi
                 var propertiesToColapse = option.PropertiesToExpand;
