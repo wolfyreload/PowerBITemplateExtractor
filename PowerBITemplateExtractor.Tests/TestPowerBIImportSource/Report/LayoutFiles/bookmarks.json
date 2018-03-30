@@ -1,0 +1,348 @@
+[
+  {
+    "displayName": "Bookmark 1",
+    "name": "Bookmark9f9ea4c065641ac2e0d7",
+    "explorationState": {
+      "version": "1.0",
+      "activeSection": "ReportSection",
+      "sections": {
+        "ReportSection": {
+          "visualContainers": {
+            "VisualContainer1": {
+              "filters": {
+                "byExpr": [
+                  {
+                    "type": "Advanced",
+                    "expression": {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "MeasuresTest"
+                          }
+                        },
+                        "Property": "Number Of People Last Name Johnson"
+                      }
+                    },
+                    "howCreated": 0
+                  },
+                  {
+                    "type": "Advanced",
+                    "expression": {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "MeasuresTest"
+                          }
+                        },
+                        "Property": "Number Of People Named John"
+                      }
+                    },
+                    "howCreated": 0
+                  }
+                ]
+              },
+              "singleVisual": {
+                "visualType": "multiRowCard",
+                "objects": {},
+                "orderBy": [
+                  {
+                    "Direction": 2,
+                    "Expression": {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "MeasuresTest"
+                          }
+                        },
+                        "Property": "Number Of People Last Name Johnson"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "VisualContainer2": {
+              "filters": {
+                "byExpr": [
+                  {
+                    "type": "Categorical",
+                    "expression": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Person"
+                          }
+                        },
+                        "Property": "Name"
+                      }
+                    },
+                    "howCreated": 0
+                  },
+                  {
+                    "type": "Categorical",
+                    "expression": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Person"
+                          }
+                        },
+                        "Property": "Surname"
+                      }
+                    },
+                    "howCreated": 0
+                  }
+                ]
+              },
+              "singleVisual": {
+                "visualType": "tableEx",
+                "objects": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "options": {
+      "targetVisualNames": [
+        "VisualContainer1"
+      ]
+    }
+  },
+  {
+    "displayName": "Bookmark 2",
+    "name": "Bookmarke3014d4203b0ac1748e6",
+    "explorationState": {
+      "version": "1.0",
+      "activeSection": "ReportSection",
+      "sections": {
+        "ReportSection": {
+          "visualContainers": {
+            "VisualContainer1": {
+              "filters": {
+                "byExpr": [
+                  {
+                    "type": "Advanced",
+                    "expression": {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "MeasuresTest"
+                          }
+                        },
+                        "Property": "Number Of People Last Name Johnson"
+                      }
+                    },
+                    "howCreated": 0
+                  },
+                  {
+                    "type": "Advanced",
+                    "expression": {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "MeasuresTest"
+                          }
+                        },
+                        "Property": "Number Of People Named John"
+                      }
+                    },
+                    "howCreated": 0
+                  }
+                ]
+              },
+              "singleVisual": {
+                "visualType": "multiRowCard",
+                "objects": {},
+                "orderBy": [
+                  {
+                    "Direction": 2,
+                    "Expression": {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "MeasuresTest"
+                          }
+                        },
+                        "Property": "Number Of People Last Name Johnson"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "VisualContainer2": {
+              "filters": {
+                "byExpr": [
+                  {
+                    "type": "Categorical",
+                    "expression": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Person"
+                          }
+                        },
+                        "Property": "Name"
+                      }
+                    },
+                    "howCreated": 0
+                  },
+                  {
+                    "type": "Categorical",
+                    "expression": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Person"
+                          }
+                        },
+                        "Property": "Surname"
+                      }
+                    },
+                    "howCreated": 0
+                  }
+                ]
+              },
+              "singleVisual": {
+                "visualType": "tableEx",
+                "objects": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "options": {
+      "targetVisualNames": [
+        "VisualContainer1"
+      ]
+    }
+  },
+  {
+    "displayName": "Bookmark 3",
+    "name": "Bookmark44f1e165015273e02842",
+    "explorationState": {
+      "version": "1.0",
+      "activeSection": "ReportSection",
+      "sections": {
+        "ReportSection": {
+          "visualContainers": {
+            "VisualContainer1": {
+              "filters": {
+                "byExpr": [
+                  {
+                    "type": "Advanced",
+                    "expression": {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "MeasuresTest"
+                          }
+                        },
+                        "Property": "Number Of People Last Name Johnson"
+                      }
+                    },
+                    "howCreated": 0
+                  },
+                  {
+                    "type": "Advanced",
+                    "expression": {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "MeasuresTest"
+                          }
+                        },
+                        "Property": "Number Of People Named John"
+                      }
+                    },
+                    "howCreated": 0
+                  }
+                ]
+              },
+              "singleVisual": {
+                "visualType": "multiRowCard",
+                "objects": {},
+                "orderBy": [
+                  {
+                    "Direction": 2,
+                    "Expression": {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "MeasuresTest"
+                          }
+                        },
+                        "Property": "Number Of People Last Name Johnson"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "VisualContainer2": {
+              "filters": {
+                "byExpr": [
+                  {
+                    "type": "Categorical",
+                    "expression": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Person"
+                          }
+                        },
+                        "Property": "Name"
+                      }
+                    },
+                    "howCreated": 0
+                  },
+                  {
+                    "type": "Categorical",
+                    "expression": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Person"
+                          }
+                        },
+                        "Property": "Surname"
+                      }
+                    },
+                    "howCreated": 0
+                  }
+                ]
+              },
+              "singleVisual": {
+                "visualType": "tableEx",
+                "objects": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "options": {
+      "targetVisualNames": [
+        "VisualContainer1"
+      ]
+    }
+  },
+  {
+    "displayName": "Bookmark 4",
+    "name": "Bookmarkce865d6190010cede314",
+    "explorationState": {
+      "version": "1.0",
+      "activeSection": "ReportSection95b78be9dcbc2023d14b",
+      "sections": {
+        "ReportSection95b78be9dcbc2023d14b": {
+          "visualContainers": {}
+        }
+      }
+    },
+    "options": {
+      "targetVisualNames": []
+    }
+  }
+]

@@ -1,10 +1,25 @@
 ﻿{
   "config": {
-    "activeSectionIndex": 1,
+    "activeSectionIndex": 2,
     "bookmarks": [],
     "version": "3.8"
   },
   "id": 0,
   "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "name": "RegisteredResources",
+        "type": 1,
+        "items": [
+          {
+            "type": 100,
+            "path": "download0059284829308927645.png",
+            "name": "download0059284829308927645.png"
+          }
+        ]
+      }
+    }
+  ],
   "sections": []
 }

@@ -157,6 +157,49 @@
         }
       },
       "filters": []
+    },
+    {
+      "x": 300,
+      "y": 20,
+      "z": 3,
+      "width": 280,
+      "height": 280,
+      "config": {
+        "name": "1740492e9caf5371c5da",
+        "layouts": [
+          {
+            "id": 0,
+            "position": {
+              "x": 300,
+              "y": 20,
+              "width": 280,
+              "height": 280,
+              "z": 3
+            }
+          }
+        ],
+        "singleVisual": {
+          "visualType": "textbox",
+          "objects": {
+            "general": [
+              {
+                "properties": {
+                  "paragraphs": [
+                    {
+                      "textRuns": [
+                        {
+                          "value": "Test1"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "filters": []
     }
   ],
   "displayOption": 1,

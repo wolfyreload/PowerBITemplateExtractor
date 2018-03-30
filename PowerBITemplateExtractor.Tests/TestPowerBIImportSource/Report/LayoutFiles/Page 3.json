@@ -3,7 +3,94 @@
   "displayName": "Page 3",
   "filters": [],
   "ordinal": 2,
-  "visualContainers": [],
+  "visualContainers": [
+    {
+      "x": 10,
+      "y": 20,
+      "z": 1,
+      "width": 280,
+      "height": 280,
+      "config": {
+        "name": "4148614dd39571003cab",
+        "layouts": [
+          {
+            "id": 0,
+            "position": {
+              "x": 10,
+              "y": 20,
+              "width": 280,
+              "height": 280,
+              "z": 1
+            }
+          }
+        ],
+        "singleVisual": {
+          "visualType": "textbox",
+          "objects": {
+            "general": [
+              {
+                "properties": {
+                  "paragraphs": [
+                    {
+                      "textRuns": [
+                        {
+                          "value": "Test3"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "filters": []
+    },
+    {
+      "x": 10,
+      "y": 320,
+      "z": 2,
+      "width": 280,
+      "height": 280,
+      "config": {
+        "name": "4777b2955ce672e907da",
+        "layouts": [
+          {
+            "id": 0,
+            "position": {
+              "x": 10,
+              "y": 320,
+              "width": 280,
+              "height": 280,
+              "z": 2
+            }
+          }
+        ],
+        "singleVisual": {
+          "visualType": "image",
+          "objects": {
+            "general": [
+              {
+                "properties": {
+                  "imageUrl": {
+                    "expr": {
+                      "ResourcePackageItem": {
+                        "PackageName": "RegisteredResources",
+                        "PackageType": 1,
+                        "ItemName": "download0059284829308927645.png"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "filters": []
+    }
+  ],
   "displayOption": 1,
   "width": 1280,
   "height": 720,
