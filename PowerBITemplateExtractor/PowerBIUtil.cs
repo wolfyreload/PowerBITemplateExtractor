@@ -17,6 +17,12 @@ namespace PowerBITemplateExtractor
             string fileName = options.PowerBITemplatePath;
             string sourcePath = options.PowerBISourceControlPath;
 
+            if (!Directory.Exists(sourcePath))
+            {
+                Console.WriteLine($"PowerBI Template Source folder '{sourcePath}' does not exist");
+                return;
+            }
+
             //make a clone of the folder we working with as we want to change the encodings of a couple of files
             string clonePath = new DirectoryInfo(sourcePath).Parent.FullName + "\\clone";
             deleteDirectory(clonePath);
@@ -50,7 +56,11 @@ namespace PowerBITemplateExtractor
             string fileName = options.PowerBITemplatePath;
             string destinationPath = options.PowerBISourceControlPath;
 
-            if (!File.Exists(fileName)) return;
+            if (!File.Exists(fileName))
+            {
+                Console.WriteLine($"PowerBI Template '{fileName}' does not exist");
+                return;
+            }
             //export to folder
             ZipUtil.ExtractArchive(destinationPath, fileName);
 
